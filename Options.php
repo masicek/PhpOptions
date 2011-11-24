@@ -3,6 +3,7 @@
 namespace PhpOptions;
 
 
+require_once __DIR__ . '/Arguments.php';
 /**
  * Class for better work with PHP comand-line options
  *
@@ -53,6 +54,17 @@ class Options
 		{
 			throw new Exception('Script have to run from command line.');
 		}
+	}
+
+
+	/**
+	 * Return array of arguments in command-line.
+	 *
+	 * @return array
+	 */
+	public static function arguments()
+	{
+		return Arguments::arguments();
 	}
 
 
@@ -135,7 +147,7 @@ class Options
 		}
 
 		// default option
-		if (!is_null($this->default) && ($this->default['name'] == $name) && $this->anyOptionsSet())
+		if (!is_null($this->default) && ($this->default['name'] == $name) && (count(Arguments::options()) == 0))
 		{
 			return $this->default['value'];
 		}
@@ -176,30 +188,6 @@ class Options
 		$this->checkConflicts($option);
 		$this->options[$option->getName()] = $option;
 		$this->optionsValues[$option->getName()] = $option->getValue();
-	}
-
-
-	/**
-	 * Detect that any option is set
-	 *
-	 * @return bool
-	 */
-	private function anyOptionsSet()
-	{
-		$args = $_SERVER['argv'];
-
-		// delete script name
-		array_shift($args);
-
-		// check numner of options
-		if (count($args) == 0)
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
 	}
 
 

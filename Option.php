@@ -3,6 +3,9 @@
 namespace PhpOptions;
 
 
+require_once __DIR__ . '/Arguments.php';
+
+
 /**
  * Class for bettwer work with one PHP comman-line option
  *
@@ -27,13 +30,6 @@ class Option
 	 * Type of value requirement - optional value
 	 */
 	const VALUE_OPTIONAL = 'value_optional';
-
-	/**
-	 * List of arguments readed form command-line.
-	 *
-	 * @var array ([named], [common])
-	 */
-	private static $cacheCmdArgs = NULL;
 
 	/**
 	 * Name of option
@@ -374,16 +370,16 @@ class Option
 	 *
 	 * @throws LogicException Option has value set by short and long variant.
 	 * @throws LogicException Option is required.
+	 * @throws LogicException Option have value, but any is exected.
 	 * @throws LogicException Option has require value, but no set.
 	 * @return mixed
 	 */
 	private function readValue()
 	{
-		$args = $this->getCmdArgs();
-		$named = $args['named'];
+		$options = Arguments::options();
 
-		$short = isset($named[$this->short]) ? $named[$this->short] : FALSE;
-		$long = isset($named[$this->long]) ? $named[$this->long] : FALSE;
+		$short = isset($options[$this->short]) ? $options[$this->short] : FALSE;
+		$long = isset($options[$this->long]) ? $options[$this->long] : FALSE;
 
 		// get value
 		if ($short !== FALSE && $long !== FALSE)
@@ -409,7 +405,6 @@ class Option
 			throw new \LogicException($name . ': Option is required.');
 		}
 
-
 		// value required
 		switch ($this->valueRequired)
 		{
@@ -417,8 +412,7 @@ class Option
 				// set argument as common argument
 				if (!is_bool($value))
 				{
-					self::$cacheCmdArgs['common'][] = $value;
-					$value = TRUE;
+					throw new \LogicException($this->name . ': Option have value, but any is exected.');
 				}
 				break;
 
@@ -440,116 +434,6 @@ class Option
 		}
 
 		return $value;
-	}
-
-
-	/**
-	 * Return array of arguments in command-line.
-	 * Argument are prepared for better work.
-	 * <pre>
-	 * --abc="xxx" => ('abc' => 'xxx')
-	 * --abc ="xxx" => ('abc' => 'xxx')
-	 * --abc "xxx" => ('abc' => 'xxx')
-	 * -abc="xxx" => ('a' => TRUE, 'b' => TRUE, 'c' => 'xxx')
-	 * -abc "xxx" => ('a' => TRUE, 'b' => TRUE, 'c' => 'xxx')
-	 * -abc ="xxx" => ('a' => TRUE, 'b' => TRUE, 'c' => 'xxx')
-	 * -a -bc ="xxx" => ('a' => TRUE, 'b' => TRUE, 'c' => 'xxx')
-	 * </pre>
-	 *
-	 * @return array ([named], [common])
-	 */
-	private function getCmdArgs()
-	{
-		if (is_null(self::$cacheCmdArgs))
-		{
-			self::$cacheCmdArgs = $this->readCmdArgs();
-		}
-
-		return self::$cacheCmdArgs;
-	}
-
-
-	/**
-	 * Read array of arguments in command-line.
-	 * Argument are prepared for better work.
-	 * <pre>
-	 * --abc="xxx" => ('abc' => 'xxx')
-	 * --abc ="xxx" => ('abc' => 'xxx')
-	 * --abc "xxx" => ('abc' => 'xxx')
-	 * -abc="xxx" => ('a' => TRUE, 'b' => TRUE, 'c' => 'xxx')
-	 * -abc "xxx" => ('a' => TRUE, 'b' => TRUE, 'c' => 'xxx')
-	 * -abc ="xxx" => ('a' => TRUE, 'b' => TRUE, 'c' => 'xxx')
-	 * -a -bc ="xxx" => ('a' => TRUE, 'b' => TRUE, 'c' => 'xxx')
-	 * </pre>
-	 *
-	 * @return array ([named], [common])
-	 */
-	private function readCmdArgs()
-	{
-		$cmdOptions = array();
-		$cmdCommonValues = array();
-		$args = $_SERVER['argv'];
-
-		// delete script name
-		array_shift($args);
-
-		if (count($args) > 0)
-		{
-			// clean arguments
-			$argsClean = array();
-			foreach ($args as $arg)
-			{
-				$position = strpos($arg, '=');
-				if ($position === 0)
-				{
-					$argsClean[] = substr($arg, 1);
-				}
-				elseif ($position !== FALSE)
-				{
-					$argsClean[] = substr($arg, 0, $position);
-					$argsClean[] = substr($arg, $position + 1);
-				}
-				else
-				{
-					$argsClean[] = $arg;
-				}
-			}
-			$args = $argsClean;
-
-			$previous = NULL;
-			foreach ($args as $arg)
-			{
-				// long option
-				if (substr($arg, 0, 2) == '--')
-				{
-					$option = substr($arg, 2);
-					$cmdOptions[$option] = TRUE;
-					$previous = $option;
-				}
-				// short options
-				elseif (substr($arg, 0, 1) == '-')
-				{
-					foreach (str_split(substr($arg, 1)) as $char)
-					{
-						$cmdOptions[$char] = TRUE;
-						$previous = $char;
-					}
-				}
-				// value for previous option
-				elseif ($previous)
-				{
-					$cmdOptions[$previous] = $arg;
-					$previous = NULL;
-				}
-				// common options
-				else
-				{
-					$cmdCommonValues[] = $arg;
-				}
-			}
-		}
-
-		return array('named' => $cmdOptions, 'common' => $cmdCommonValues);
 	}
 
 

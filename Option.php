@@ -88,6 +88,13 @@ class Option
 	 */
 	private $description = '';
 
+	/**
+	 * Array of names of needed options by this option
+	 *
+	 * @var array
+	 */
+	private $needed = array();
+
 
 	// ---- MAKE NEW OPTION ----
 
@@ -253,6 +260,17 @@ class Option
 	}
 
 
+	/**
+	 * Set names of needed options by this option
+	 *
+	 * @param array $needed Names of needed options
+	 */
+	public function dependences($needed)
+	{
+		$this->needed = $needed;
+	}
+
+
 	// ---- GET OPTION SETTINGS ----
 
 
@@ -355,6 +373,11 @@ class Option
 		$help .= "\t";
 
 		$help .= $this->description;
+
+		if (count($this->needed) > 0)
+		{
+			$help .= ' (needed: ' . implode(', ', $this->needed) .')';
+		}
 
 		return $help;
 	}

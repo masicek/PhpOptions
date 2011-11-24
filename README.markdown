@@ -12,6 +12,7 @@ You can:
 * define __default option__
 * generate __help__
 * define __common help description__
+* define __dependences__ between options
 
 For a better understanding see the [exmaples scrips](./PhpOptions/tree/master/examples/).
 

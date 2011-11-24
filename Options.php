@@ -160,6 +160,46 @@ class Options
 
 
 	/**
+	 * Define dependences of options.
+	 *
+	 * @param string $main Main option for which we define needed options
+	 * @param string|array $needed Needed options for main option
+	 *
+	 * @throws InvalidArgumentException Unknown option
+	 * @throws UserBadCallException Some option need some another option
+	 * @return void
+	 */
+	public function dependences($main, $needed)
+	{
+		if (!is_array($needed))
+		{
+			$needed = array($needed);
+		}
+		foreach (array($main) + $needed as $name)
+		{
+			if (!isset($this->optionsValues[$name]))
+			{
+				throw new InvalidArgumentException($name . ': Unknown option.');
+			}
+		}
+
+		// if main option is defined, check needed options
+		if ($this->get($main) !== FALSE)
+		{
+			foreach ($needed as $name)
+			{
+				if ($this->get($name) === FALSE)
+				{
+					throw new UserBadCallException($main . '->' . $name . ': Option "' . $main . '" need option "'. $name . '".');
+				}
+			}
+		}
+
+		$this->options[$main]->dependences($needed);
+	}
+
+
+	/**
 	 * Return "help" made from descriptions of options
 	 *
 	 * @return string

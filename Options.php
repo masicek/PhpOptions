@@ -3,7 +3,10 @@
 namespace PhpOptions;
 
 
+require_once __DIR__ . '/Exceptions.php';
 require_once __DIR__ . '/Arguments.php';
+
+
 /**
  * Class for better work with PHP comand-line options
  *
@@ -46,13 +49,13 @@ class Options
 	/**
 	 * Control that script run from command line
 	 *
-	 * @throws Exception Script have to run from command line.
+	 * @throws UserBadCallException Script have to run from command line.
 	 */
 	public function __construct()
 	{
 		if (php_sapi_name() !== 'cli')
 		{
-			throw new Exception('Script have to run from command line.');
+			throw new UserBadCallException('Script have to run from command line.');
 		}
 	}
 
@@ -101,7 +104,7 @@ class Options
 	{
 		if (!isset($this->options[$name]))
 		{
-			throw new \InvalidArgumentException($name . ': Unknown option.');
+			throw new InvalidArgumentException($name . ': Unknown option.');
 		}
 
 		$value = $this->options[$name]->getDef();
@@ -143,7 +146,7 @@ class Options
 	{
 		if (!isset($this->optionsValues[$name]))
 		{
-			throw new \InvalidArgumentException($name . ': Unknown option.');
+			throw new InvalidArgumentException($name . ': Unknown option.');
 		}
 
 		// default option
@@ -206,19 +209,19 @@ class Options
 		$name = $option->getName();
 		if (isset($this->options[$name]))
 		{
-			throw new \LogicException($name . ': Option already exist.');
+			throw new LogicException($name . ': Option already exists.');
 		}
 
 		$short = $option->getShort();
 		if (in_array($short, $this->getAllShorts()))
 		{
-			throw new \LogicException($name . ': Option with short variant "' . $short . '" already exist.');
+			throw new LogicException($name . ': Option with short variant "' . $short . '" already exists.');
 		}
 
 		$long = $option->getLong();
 		if (in_array($long, $this->getAllLongs()))
 		{
-			throw new \LogicException($name . ': Option with long variant "' . $long . '" already exist.');
+			throw new LogicException($name . ': Option with long variant "' . $long . '" already exists.');
 		}
 	}
 

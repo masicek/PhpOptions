@@ -14,3 +14,9 @@ You can:
 * define __common help description__
 
 For a better understanding see the [exmaples scrips](./PhpOptions/tree/master/examples/).
+
+Possible Exceptions:
+
+* __InvalidArgumentException__ - exceptions made by programmer by wrong calling method (in correct scrit shoul not occured)
+* __LogicException__ - exceptions made by programmer by wrong set of expected options together (in correct scrit shoul not occured)
+* __UserBadCallException__ - exceptions made by user wrong using of script

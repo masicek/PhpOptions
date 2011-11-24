@@ -3,6 +3,7 @@
 namespace PhpOptions;
 
 
+require_once __DIR__ . '/Exceptions.php';
 require_once __DIR__ . '/Arguments.php';
 
 
@@ -103,7 +104,7 @@ class Option
 	{
 		if (!$name)
 		{
-			throw new \InvalidArgumentException('Name of option cannot be empty.');
+			throw new InvalidArgumentException('Name of option cannot be empty.');
 		}
 
 		$this->name = $name;
@@ -147,12 +148,12 @@ class Option
 	{
 		if (is_null($short) && is_null($this->long))
 		{
-			throw new \LogicException($this->name . ': Short and long varint cannot be undefined together.');
+			throw new LogicException($this->name . ': Short and long varint cannot be undefined together.');
 		}
 
 		if (!is_null($short) && strlen($short) != 1)
 		{
-			throw new \InvalidArgumentException($this->name . ': Short variant have to be only one character.');
+			throw new InvalidArgumentException($this->name . ': Short variant has to be only one character.');
 		}
 
 		$this->short = $short;
@@ -172,7 +173,7 @@ class Option
 	{
 		if (is_null($long) && is_null($this->short))
 		{
-			throw new \LogicException($this->name . ': Short and long varint cannot be undefined together.');
+			throw new LogicException($this->name . ': Short and long varint cannot be undefined together.');
 		}
 
 		$this->long = $long;
@@ -192,7 +193,7 @@ class Option
 	{
 		if (!is_null($default) && $this->valueRequired != self::VALUE_OPTIONAL)
 		{
-			throw new \LogicException($this->name . ': The default value make sense only for options with optional value.');
+			throw new LogicException($this->name . ': The default value makes sense only for options with optional value.');
 		}
 
 		$this->default = $default;
@@ -230,7 +231,7 @@ class Option
 
 		if (!is_null($this->default) && $value != self::VALUE_OPTIONAL)
 		{
-			throw new \LogicException($this->name . ': The require/non value make sense only for option without default value.');
+			throw new LogicException($this->name . ': The require/non value makes sense only for option without default value.');
 		}
 
 		$this->valueRequired = $value;
@@ -368,10 +369,10 @@ class Option
 	 * TRUE = set without value
 	 * other = value form command-line of default value
 	 *
-	 * @throws LogicException Option has value set by short and long variant.
-	 * @throws LogicException Option is required.
-	 * @throws LogicException Option have value, but any is exected.
-	 * @throws LogicException Option has require value, but no set.
+	 * @throws UserBadCallException Option has value set by short and long variant.
+	 * @throws UserBadCallException Option is required.
+	 * @throws UserBadCallException Option have value, but any is exected.
+	 * @throws UserBadCallException Option has require value, but no set.
 	 * @return mixed
 	 */
 	private function readValue()
@@ -384,7 +385,7 @@ class Option
 		// get value
 		if ($short !== FALSE && $long !== FALSE)
 		{
-			throw new \LogicException($name . ': Option has value set by short and long variant.');
+			throw new UserBadCallException($this->name . ': Option has value set by short and long variant.');
 		}
 		elseif ($short === FALSE && $long === FALSE)
 		{
@@ -402,7 +403,7 @@ class Option
 		// required
 		if ($this->required && $value === FALSE)
 		{
-			throw new \LogicException($name . ': Option is required.');
+			throw new UserBadCallException($this->name . ': Option is required.');
 		}
 
 		// value required
@@ -412,7 +413,7 @@ class Option
 				// set argument as common argument
 				if (!is_bool($value))
 				{
-					throw new \LogicException($this->name . ': Option have value, but any is exected.');
+					throw new UserBadCallException($this->name . ': Option have value, but any is expected.');
 				}
 				break;
 
@@ -428,7 +429,7 @@ class Option
 				// option has not value
 				if ($value === TRUE)
 				{
-					throw new \LogicException($this->name . ': Option has require value, but no set.');
+					throw new UserBadCallException($this->name . ': Option has require value, but no set.');
 				}
 				break;
 		}

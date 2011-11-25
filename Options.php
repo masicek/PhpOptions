@@ -235,7 +235,7 @@ class Options
 	{
 		$this->checkConflicts($option);
 		$this->options[$option->getName()] = $option;
-		$this->optionsValues[$option->getName()] = $option->getValue();
+		$this->optionsValues[$option->getName()] = $option->getValue((bool)($this->default['value']));
 	}
 
 

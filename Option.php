@@ -363,13 +363,15 @@ class Option
 	 * TRUE = set without value
 	 * other = value form command-line of default value
 	 *
+	 * @param bool $isDefaiultSet Flag if default option is set
+	 *
 	 * @return mixed
 	 */
-	public function getValue()
+	public function getValue($isDefaultSet = FALSE)
 	{
 		if (is_null($this->value))
 		{
-			$this->value = $this->readValue();
+			$this->value = $this->readValue($isDefaultSet);
 		}
 
 		return $this->value;
@@ -454,6 +456,8 @@ class Option
 	 * TRUE = set without value
 	 * other = value form command-line of default value
 	 *
+	 * @param bool $isDefaiultSet Flag if default option is set
+	 *
 	 * @throws UserBadCallException Option has value set by short and long variant.
 	 * @throws UserBadCallException Option has bad format
 	 * @throws UserBadCallException Option is required.
@@ -461,7 +465,7 @@ class Option
 	 * @throws UserBadCallException Option has require value, but no set.
 	 * @return mixed
 	 */
-	private function readValue()
+	private function readValue($isDefaultSet)
 	{
 		$options = Arguments::options();
 
@@ -487,7 +491,7 @@ class Option
 		}
 
 		// required
-		if ($this->required && $value === FALSE)
+		if (!$isDefaultSet && $this->required && $value === FALSE)
 		{
 			throw new UserBadCallException($this->getOptions() . ': Option is required.');
 		}

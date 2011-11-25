@@ -5,6 +5,7 @@ namespace PhpOptions;
 
 require_once __DIR__ . '/Exceptions.php';
 require_once __DIR__ . '/Arguments.php';
+require_once __DIR__ . '/Types/Types.php';
 
 
 /**
@@ -32,12 +33,22 @@ class Option
 	 */
 	const VALUE_OPTIONAL = 'value_optional';
 
+
+
+
 	/**
 	 * Name of option
 	 *
 	 * @var string
 	 */
 	private $name;
+
+	/**
+	 * Type of expected value
+	 *
+	 * @var IType
+	 */
+	private $type = NULL;
 
 	/**
 	 * Value of options set in command-line
@@ -136,6 +147,32 @@ class Option
 	public static function make($name)
 	{
 		return new Option($name);
+	}
+
+
+	/**
+	 * Create new option of specific type.
+	 * The typed option have required value as default.
+	 * @see Option::make
+	 *
+	 * @param string $name Name of option
+	 * @param array $settings Specific settings for selected type
+	 *
+	 * @return Option
+	 */
+	public static function __callStatic($type, $settings)
+	{
+		if (!in_array($type, Types::possibleTypes()))
+		{
+			throw new UndefinedMethodException($type . ': Undefined type of option.');
+		}
+
+		$name = (isset($settings[0])) ? $settings[0] : '';
+		$option = self::make($name);
+		array_shift($settings);
+		$option->type = Types::getType($type, $settings);
+		$option->value();
+		return $option;
 	}
 
 
@@ -393,6 +430,7 @@ class Option
 	 * other = value form command-line of default value
 	 *
 	 * @throws UserBadCallException Option has value set by short and long variant.
+	 * @throws UserBadCallException Option has bad format
 	 * @throws UserBadCallException Option is required.
 	 * @throws UserBadCallException Option have value, but any is exected.
 	 * @throws UserBadCallException Option has require value, but no set.
@@ -455,6 +493,12 @@ class Option
 					throw new UserBadCallException($this->name . ': Option has require value, but no set.');
 				}
 				break;
+		}
+
+		// type of value
+		if (($value !== FALSE) && !is_null($this->type) && !$this->type->check($value))
+		{
+			throw new UserBadCallException($this->name . ': Option has bad format.');
 		}
 
 		return $value;

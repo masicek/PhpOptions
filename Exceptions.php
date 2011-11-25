@@ -13,6 +13,15 @@ class InvalidArgumentException extends \Exception
 
 
 /**
+ * Exceptions made by programmer by calling undefined method.
+ * In correct scrit shoul not occured.
+ */
+class UndefinedMethodException extends \Exception
+{
+}
+
+
+/**
  * Exceptions made by programmer by wrong set of expected options together.
  * In correct scrit shoul not occured.
  */

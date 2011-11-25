@@ -45,6 +45,13 @@ class Options
 	 */
 	private $description = '';
 
+	/**
+	 * List groups with names of options that belong to groups
+	 *
+	 * @var array ([name of group] => array of names of options)
+	 */
+	private $groups = array();
+
 
 	/**
 	 * Control that script run from command line
@@ -205,6 +212,38 @@ class Options
 
 
 	/**
+	 * Define groups of options
+	 *
+	 * @param string $name Name of group
+	 * @param string|array $options List of options
+	 *
+	 * @return void
+	 */
+	public function group($name, $options)
+	{
+		if (in_array($name, $this->groups))
+		{
+			throw new LogicException($name . ': Group already exists.');
+		}
+
+		if (!is_array($options))
+		{
+			$options = array($options);
+		}
+
+		foreach ($options as $name)
+		{
+			if (!isset($this->options[$name]))
+			{
+				throw new LogicException($name . ': Option does not exist.');
+			}
+		}
+
+		$this->groups[$name] = $options;
+	}
+
+
+	/**
 	 * Return "help" made from descriptions of options
 	 *
 	 * @return string
@@ -212,9 +251,24 @@ class Options
 	public function getHelp()
 	{
 		$help = $this->description . "\n\n";
-		foreach ($this->options as $option)
+
+		if ($this->groups)
 		{
-			$help .= $option->getHelp() . "\n";
+			foreach ($this->groups as $groupName => $optionsNames)
+			{
+				$help .= $groupName . "\n";
+				foreach ($optionsNames as $optionName)
+				{
+					$help .= "\t" . $this->options[$optionName]->getHelp() . "\n";
+				}
+			}
+		}
+		else
+		{
+			foreach ($this->options as $option)
+			{
+				$help .= $option->getHelp() . "\n";
+			}
 		}
 
 		return $help;

@@ -16,7 +16,7 @@ Setting
 * generate __help__
 * define __common help description__
 * define __dependences__ between options
-
+* define __groups__ of options
 
 Exceptions
 ----------

@@ -100,9 +100,9 @@ class Option
 	private $description = '';
 
 	/**
-	 * Array of names of needed options by this option
+	 * Array of needed options by this option
 	 *
-	 * @var array
+	 * @var array of Option
 	 */
 	private $needed = array();
 
@@ -298,9 +298,11 @@ class Option
 
 
 	/**
-	 * Set names of needed options by this option
+	 * Set needed options by this option
 	 *
-	 * @param array $needed Names of needed options
+	 * @param array $needed Needed options
+	 *
+	 * @return void
 	 */
 	public function dependences($needed)
 	{
@@ -378,42 +380,65 @@ class Option
 
 
 	/**
+	 * Return short and long option in one string
+	 *
+	 * @return string
+	 */
+	public function getOptions()
+	{
+		$options = '';
+		$options .= ($this->short ? '-' . $this->short : '');
+		$options .= ($this->short && $this->long ? ' ' : '');
+		$options .= ($this->long ? '--' . $this->long : '');
+		return $options;
+	}
+
+
+	/**
 	 * Return help for option
 	 *
 	 * @return string
 	 */
 	public function getHelp()
 	{
-		$help = $this->name . ': ';
+		$help = $this->getOptions();
 
-		$help .= ($this->short ? '-' . $this->short . ' ' : '');
-		$help .= ($this->long ? '--' . $this->long . ' ' : '');
-
-		if ($this->required)
+		if (!$this->required)
 		{
-			$help .= '(*)';
+			$help = '[' . $help . ']';
 		}
 
+		$valueType = 'value';
+		if ($this->type)
+		{
+			$valueType = $this->type->getHelp();
+		}
 		switch ($this->valueRequired)
 		{
 			case self::VALUE_NO:
 				$help .= '';
 				break;
 			case self::VALUE_OPTIONAL:
-				$help .= '[optional]';
+				$help .= '[="' . $valueType . '"]';
 				break;
 			case self::VALUE_REQUIRE:
-				$help .= '[require]';
+				$help .= '="' . $valueType . '"';
 				break;
 		}
 
-		$help .= "\t";
-
-		$help .= $this->description;
+		if ($this->description)
+		{
+			$help .= "\t" . $this->description;
+		}
 
 		if (count($this->needed) > 0)
 		{
-			$help .= ' (needed: ' . implode(', ', $this->needed) .')';
+			$helpNeeded = '';
+			foreach ($this->needed as $neededOption)
+			{
+				$helpNeeded .= $neededOption->getOptions();
+			}
+			$help .= ' (needed: ' . implode(', ', $helpNeeded) .')';
 		}
 
 		return $help;
@@ -446,7 +471,7 @@ class Option
 		// get value
 		if ($short !== FALSE && $long !== FALSE)
 		{
-			throw new UserBadCallException($this->name . ': Option has value set by short and long variant.');
+			throw new UserBadCallException($this->getOptions() . ': Option has value set by short and long variant.');
 		}
 		elseif ($short === FALSE && $long === FALSE)
 		{
@@ -464,7 +489,7 @@ class Option
 		// required
 		if ($this->required && $value === FALSE)
 		{
-			throw new UserBadCallException($this->name . ': Option is required.');
+			throw new UserBadCallException($this->getOptions() . ': Option is required.');
 		}
 
 		// value required
@@ -474,7 +499,7 @@ class Option
 				// set argument as common argument
 				if (!is_bool($value))
 				{
-					throw new UserBadCallException($this->name . ': Option have value, but any is expected.');
+					throw new UserBadCallException($this->getOptions() . ': Option has value, but any is expected.');
 				}
 				break;
 
@@ -490,7 +515,7 @@ class Option
 				// option has not value
 				if ($value === TRUE)
 				{
-					throw new UserBadCallException($this->name . ': Option has require value, but no set.');
+					throw new UserBadCallException($this->getOptions() . ': Option has require value, but no set.');
 				}
 				break;
 		}
@@ -498,7 +523,7 @@ class Option
 		// type of value
 		if (($value !== FALSE) && !is_null($this->type) && !$this->type->check($value))
 		{
-			throw new UserBadCallException($this->name . ': Option has bad format.');
+			throw new UserBadCallException($this->getOptions() . ': Option has bad format.');
 		}
 
 		return $value;

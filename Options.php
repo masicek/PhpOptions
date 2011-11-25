@@ -34,7 +34,7 @@ class Options
 	/**
 	 * Default option and its value
 	 *
-	 * @var array() ('name' => [name of option], 'value' => [value of option])
+	 * @var array ('name' => [name of option], 'value' => [value of option])
 	 */
 	private $default = NULL;
 
@@ -175,12 +175,15 @@ class Options
 		{
 			$needed = array($needed);
 		}
+
+		$neededOptions = array();
 		foreach (array($main) + $needed as $name)
 		{
 			if (!isset($this->optionsValues[$name]))
 			{
 				throw new InvalidArgumentException($name . ': Unknown option.');
 			}
+			$neededOptions[] = $this->options[$name];
 		}
 
 		// if main option is defined, check needed options
@@ -190,12 +193,14 @@ class Options
 			{
 				if ($this->get($name) === FALSE)
 				{
-					throw new UserBadCallException($main . '->' . $name . ': Option "' . $main . '" need option "'. $name . '".');
+					$mainOptions = $this->options[$main]->getOptions();
+					$nameOptions = $this->options[$name]->getOptions();
+					throw new UserBadCallException($mainOptions . '->' . $nameOptions . ': Option "' . $mainOptions . '" needs option "'. $nameOptions . '".');
 				}
 			}
 		}
 
-		$this->options[$main]->dependences($needed);
+		$this->options[$main]->dependences($neededOptions);
 	}
 
 
@@ -206,7 +211,7 @@ class Options
 	 */
 	public function getHelp()
 	{
-		$help = $this->description . "\n";
+		$help = $this->description . "\n\n";
 		foreach ($this->options as $option)
 		{
 			$help .= $option->getHelp() . "\n";

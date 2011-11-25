@@ -96,4 +96,15 @@ class TimeType implements IType
 	}
 
 
+	/**
+	 * Return string show in help for infrormation about type of option value
+	 *
+	 * @return string
+	 */
+	public function getHelp()
+	{
+		return 'time';
+	}
+
+
 }

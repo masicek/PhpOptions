@@ -86,7 +86,7 @@ class Options
 	 *
 	 * @param array|Option $options Added options
 	 *
-	 * @return void
+	 * @return Options
 	 */
 	public function add($options = array())
 	{
@@ -99,6 +99,8 @@ class Options
 		{
 			$this->addOne($option);
 		}
+
+		return $this;
 	}
 
 
@@ -108,7 +110,7 @@ class Options
 	 * @param string $name Name of option
 	 *
 	 * @throws InvalidArgumentException Unknown option.
-	 * @return Option
+	 * @return Options
 	 */
 	public function def($name)
 	{
@@ -125,7 +127,7 @@ class Options
 			$this->default['value'] = TRUE;
 		}
 
-		return $this->options[$name];
+		return $this;
 	}
 
 
@@ -134,11 +136,12 @@ class Options
 	 *
 	 * @param string $description Text of common description
 	 *
-	 * @return void
+	 * @return Options
 	 */
 	public function description($description)
 	{
 		$this->description = $description;
+		return $this;
 	}
 
 
@@ -177,7 +180,7 @@ class Options
 	 *
 	 * @throws InvalidArgumentException Unknown option
 	 * @throws UserBadCallException Some option need some another option
-	 * @return void
+	 * @return Options
 	 */
 	public function dependences($main, $needed)
 	{
@@ -211,6 +214,8 @@ class Options
 		}
 
 		$this->options[$main]->dependences($neededOptions);
+
+		return $this;
 	}
 
 
@@ -220,7 +225,7 @@ class Options
 	 * @param string $name Name of group
 	 * @param string|array $options List of options
 	 *
-	 * @return void
+	 * @return Options
 	 */
 	public function group($name, $options)
 	{
@@ -243,6 +248,8 @@ class Options
 		}
 
 		$this->groups[$name] = $options;
+
+		return $this;
 	}
 
 

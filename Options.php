@@ -12,7 +12,7 @@ require_once __DIR__ . '/Arguments.php';
  *
  * @link git@github.com:masicek/PhpOptions.git
  *
- * @author Viktor Masicek <viktor@masicek.net>
+ * @author Viktor Mašíček <viktor@masicek.net>
  */
 class Options
 {

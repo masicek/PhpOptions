@@ -4,6 +4,15 @@ namespace PhpOptions;
 
 
 /**
+ * List of exceptions used in PhpOptions.
+ *
+ * @link git@github.com:masicek/PhpOptions.git
+ *
+ * @author Viktor Mašíček <viktor@masicek.net>
+ */
+
+
+/**
  * Exceptions made by programmer by wrong calling method.
  * In correct scrit shoul not occured.
  */

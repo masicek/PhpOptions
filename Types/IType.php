@@ -8,7 +8,7 @@ namespace PhpOptions;
  *
  * @link git@github.com:masicek/PhpOptions.git
  *
- * @author Viktor Masicek
+ * @author Viktor Mašíček <viktor@masicek.net>
  */
 interface IType
 {

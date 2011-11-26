@@ -1,10 +1,15 @@
 <?php
 
+/**
+ * PhpOptions
+ * @link git@github.com:masicek/PhpOptions.git
+ * @author Viktor Mašíček <viktor@masicek.net>
+ * @license "New" BSD License
+ */
+
 namespace PhpOptions;
 
-
 require_once __DIR__ . '/IType.php';
-
 
 /**
  * Datetime type
@@ -17,8 +22,6 @@ require_once __DIR__ . '/IType.php';
  * MINUTES = one-digit or two-digit number
  * SECONDS = one-digit or two-digit number
  * HOURS_FORMAT = hour format = (AM|am|A|a|PM|pm|P|p)
- *
- * @link git@github.com:masicek/PhpOptions.git
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */

@@ -1,12 +1,16 @@
 <?php
 
-namespace PhpOptions;
+/**
+ * PhpOptions
+ * @link git@github.com:masicek/PhpOptions.git
+ * @author Viktor Mašíček <viktor@masicek.net>
+ * @license "New" BSD License
+ */
 
+namespace PhpOptions;
 
 /**
  * List of exceptions used in PhpOptions.
- *
- * @link git@github.com:masicek/PhpOptions.git
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */

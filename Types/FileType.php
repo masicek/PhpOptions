@@ -46,7 +46,7 @@ class FileType implements IType
 	 */
 	public function getHelp()
 	{
-		return 'file';
+		return 'FILE';
 	}
 
 

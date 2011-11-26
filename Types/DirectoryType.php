@@ -46,7 +46,7 @@ class DirectoryType implements IType
 	 */
 	public function getHelp()
 	{
-		return 'directory';
+		return 'DIRECTORY';
 	}
 
 

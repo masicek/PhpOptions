@@ -46,7 +46,7 @@ class CharType implements IType
 	 */
 	public function getHelp()
 	{
-		return 'char';
+		return 'CHAR';
 	}
 
 

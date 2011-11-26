@@ -63,7 +63,7 @@ class RealType implements IType
 	 */
 	public function getHelp()
 	{
-		return 'real' . ($this->unsigned ? ' unsigned' : '');
+		return 'REAL' . ($this->unsigned ? ' UNSIGNED' : '');
 	}
 
 

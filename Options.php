@@ -259,7 +259,7 @@ class Options
 				$help .= $groupName . "\n";
 				foreach ($optionsNames as $optionName)
 				{
-					$help .= "\t" . $this->options[$optionName]->getHelp() . "\n";
+					$help .= $this->options[$optionName]->getHelp(1) . "\n";
 				}
 			}
 		}

@@ -46,7 +46,7 @@ class StringType implements IType
 	 */
 	public function getHelp()
 	{
-		return 'string';
+		return 'STRING';
 	}
 
 

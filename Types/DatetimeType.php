@@ -109,7 +109,7 @@ class DatetimeType implements IType
 	 */
 	public function getHelp()
 	{
-		return 'datetime';
+		return 'DATETIME';
 	}
 
 

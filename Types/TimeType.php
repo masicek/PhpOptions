@@ -103,7 +103,7 @@ class TimeType implements IType
 	 */
 	public function getHelp()
 	{
-		return 'time';
+		return 'TIME';
 	}
 
 

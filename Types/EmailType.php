@@ -46,7 +46,7 @@ class EmailType implements IType
 	 */
 	public function getHelp()
 	{
-		return 'email';
+		return 'EMAIL';
 	}
 
 

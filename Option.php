@@ -384,14 +384,16 @@ class Option
 	/**
 	 * Return short and long option in one string
 	 *
+	 * @param string $value Value of options (typically type of value)
+	 *
 	 * @return string
 	 */
-	public function getOptions()
+	public function getOptions($value = '')
 	{
 		$options = '';
-		$options .= ($this->short ? '-' . $this->short : '');
-		$options .= ($this->short && $this->long ? ' ' : '');
-		$options .= ($this->long ? '--' . $this->long : '');
+		$options .= ($this->short ? '-' . $this->short . $value : '');
+		$options .= ($this->short && $this->long ? ', ' : '');
+		$options .= ($this->long ? '--' . $this->long . $value : '');
 		return $options;
 	}
 
@@ -399,18 +401,24 @@ class Option
 	/**
 	 * Return help for option
 	 *
+	 * @param integer $indent Level of indent of text
+	 *
 	 * @return string
 	 */
-	public function getHelp()
+	public function getHelp($indent = 0)
 	{
-		$help = $this->getOptions();
-
-		if (!$this->required)
+		// indent
+		if ($indent)
 		{
-			$help = '[' . $help . ']';
+			$indent = implode('', array_fill(0, $indent, "\t"));
+		}
+		else
+		{
+			$indent = '';
 		}
 
-		$valueType = 'value';
+		// option value
+		$valueType = 'VALUE';
 		if ($this->type)
 		{
 			$valueType = $this->type->getHelp();
@@ -418,29 +426,46 @@ class Option
 		switch ($this->valueRequired)
 		{
 			case self::VALUE_NO:
-				$help .= '';
+				$value = '';
 				break;
 			case self::VALUE_OPTIONAL:
-				$help .= '[="' . $valueType . '"]';
+				$value = '[="' . $valueType . '"]';
 				break;
 			case self::VALUE_REQUIRE:
-				$help .= '="' . $valueType . '"';
+				$value = '="' . $valueType . '"';
 				break;
 		}
 
-		if ($this->description)
+		// options with value
+		$help = $this->getOptions($value);
+		if (!$this->required)
 		{
-			$help .= "\t" . $this->description;
+			$help = '[' . $help . ']';
+		}
+		$help = $indent . $help;
+
+
+		// default value
+		if ($this->default)
+		{
+			$help .= "\n\t" . $indent . 'DEFULT="' . $this->default . '"';
 		}
 
+		// needed options
 		if (count($this->needed) > 0)
 		{
-			$helpNeeded = '';
+			$helpNeeded = array();
 			foreach ($this->needed as $neededOption)
 			{
-				$helpNeeded .= $neededOption->getOptions();
+				$helpNeeded[] = $neededOption->getOptions();
 			}
-			$help .= ' (needed: ' . implode(', ', $helpNeeded) .')';
+			$help .= "\n\t" . $indent . 'NEEDED: ' . implode('; ', $helpNeeded);
+		}
+
+		// descriptions
+		if ($this->description)
+		{
+			$help .= "\n\t" . $indent . str_replace("\n", "\n\t" . $indent, $this->description);
 		}
 
 		return $help;

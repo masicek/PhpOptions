@@ -63,7 +63,7 @@ class IntegerType implements IType
 	 */
 	public function getHelp()
 	{
-		return 'integer' . ($this->unsigned ? ' unsigned' : '');
+		return 'INTEGER' . ($this->unsigned ? ' UNSIGNED' : '');
 	}
 
 

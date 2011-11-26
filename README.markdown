@@ -1,7 +1,7 @@
 PhpOptions
 ==========
 
-This is class for better work with PHP comand-line options.
+This is collection of classes for better work with PHP comand-line options.
 For a better understanding see the [exmaples scrips](./PhpOptions/tree/master/examples/).
 
 Setting

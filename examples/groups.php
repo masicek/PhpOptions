@@ -26,6 +26,8 @@ try {
 	$optionsList[] = Option::make('B Second')->short();
 	$optionsList[] = Option::make('B Third')->short();
 	$optionsList[] = Option::make('C First')->short();
+	$optionsList[] = Option::make('D First')->short();
+	$optionsList[] = Option::make('D Second')->short();
 
 	$options = new Options();
 	$options->add($optionsList);

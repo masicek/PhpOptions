@@ -262,6 +262,9 @@ class Options
 	{
 		$help = $this->description . "\n\n";
 
+		$options = $this->options;
+
+		$indent = 0;
 		if ($this->groups)
 		{
 			foreach ($this->groups as $groupName => $optionsNames)
@@ -269,16 +272,18 @@ class Options
 				$help .= $groupName . "\n";
 				foreach ($optionsNames as $optionName)
 				{
-					$help .= $this->options[$optionName]->getHelp(1) . "\n";
+					$help .= $options[$optionName]->getHelp(1) . "\n";
+					unset($options[$optionName]);
 				}
 			}
+			$help .= "\nNON GROUP OPTIONS:\n";
+			$indent = 1;
 		}
-		else
+
+		// print non group options
+		foreach ($options as $option)
 		{
-			foreach ($this->options as $option)
-			{
-				$help .= $option->getHelp() . "\n";
-			}
+			$help .= $option->getHelp($indent) . "\n";
 		}
 
 		return $help;

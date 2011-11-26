@@ -189,8 +189,13 @@ class Options
 			$needed = array($needed);
 		}
 
+		if (!isset($this->optionsValues[$main]))
+		{
+			throw new InvalidArgumentException($name . ': Unknown option.');
+		}
+
 		$neededOptions = array();
-		foreach (array($main) + $needed as $name)
+		foreach ($needed as $name)
 		{
 			if (!isset($this->optionsValues[$name]))
 			{
@@ -239,11 +244,11 @@ class Options
 			$options = array($options);
 		}
 
-		foreach ($options as $name)
+		foreach ($options as $optionName)
 		{
-			if (!isset($this->options[$name]))
+			if (!isset($this->options[$optionName]))
 			{
-				throw new LogicException($name . ': Option does not exist.');
+				throw new LogicException($optionName . ': Option does not exist.');
 			}
 		}
 

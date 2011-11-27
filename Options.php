@@ -213,7 +213,7 @@ class Options
 				{
 					$mainOptions = $this->options[$main]->getOptions();
 					$nameOptions = $this->options[$name]->getOptions();
-					throw new UserBadCallException($mainOptions . '->' . $nameOptions . ': Option "' . $mainOptions . '" needs option "'. $nameOptions . '".');
+					throw new UserBadCallException('Option "' . $mainOptions . '" needs option "'. $nameOptions . '".');
 				}
 			}
 		}

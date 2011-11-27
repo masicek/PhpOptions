@@ -9,7 +9,7 @@
 
 namespace PhpOptions;
 
-require_once __DIR__ . '/IType.php';
+require_once __DIR__ . '/AType.php';
 
 /**
  * Enum type
@@ -19,7 +19,7 @@ require_once __DIR__ . '/IType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class EnumType implements IType
+class EnumType extends AType
 {
 
 	/**
@@ -28,6 +28,7 @@ class EnumType implements IType
 	 * @var array
 	 */
 	private $values;
+
 
 	/**
 	 * Set object
@@ -38,11 +39,14 @@ class EnumType implements IType
 	 */
 	public function __construct($settings = array())
 	{
+		parent::__construct($settings);
+
 		$values = isset($settings[0]) ? $settings[0] : array();
 		if (!is_array($values))
 		{
 			$values = preg_replace('/[,; |]/', ',', $values);
 			$values = explode(',', $values);
+			$this->useFilter = FALSE;
 		}
 		$this->values = $values;
 	}
@@ -62,13 +66,26 @@ class EnumType implements IType
 
 
 	/**
-	 * Return string show in help for infrormation about type of option value
+	 * Return list of possible values
 	 *
 	 * @return string
 	 */
-	public function getHelp()
+	public function getName()
 	{
 		return '(' . implode('|', $this->values) . ')';
+	}
+
+
+	/**
+	 * Return modified value
+	 *
+	 * @param mixed $value Filtered value
+	 *
+	 * @return mixed
+	 */
+	protected function useFilter($value)
+	{
+		return array_search($value, $this->values);
 	}
 
 

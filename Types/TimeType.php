@@ -9,7 +9,7 @@
 
 namespace PhpOptions;
 
-require_once __DIR__ . '/IType.php';
+require_once __DIR__ . '/AType.php';
 
 /**
  * Time type
@@ -22,17 +22,8 @@ require_once __DIR__ . '/IType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class TimeType implements IType
+class TimeType extends AType
 {
-
-	/**
-	 * Set object
-	 *
-	 * @param array $setting Array of setting of object
-	 */
-	public function __construct($settings = array())
-	{
-	}
 
 
 	/**
@@ -44,13 +35,52 @@ class TimeType implements IType
 	 */
 	public function check($value)
 	{
-		$isDate = FALSE;
+		$dateString = $this->getTimeString($value);
 
+		$isDate = FALSE;
+		if ($dateString)
+		{
+			// check validation
+			try {
+				$dateObj = new \DateTime($dateString);
+				$isDate = ($dateObj) ? TRUE : FALSE;
+			} catch (\Exception $e) {
+				$isDate = FALSE;
+			}
+		}
+
+		return $isDate;
+	}
+
+
+	/**
+	 * Return modified value
+	 *
+	 * @param mixed $value Filtered value
+	 *
+	 * @return mixed
+	 */
+	protected function useFilter($value)
+	{
+		return $this->getTimeString($value);
+	}
+
+
+	/**
+	 * Return input date formated for DateTime object.
+	 *
+	 * @param string $value
+	 *
+	 * @return string
+	 */
+	private function getTimeString($value)
+	{
 		// parse value
 		$match = preg_match('/^([0-9]{1,2})([-:]([0-9]{1,2})([-:]([0-9]{1,2}))?)?( *(AM|am|A|a|PM|pm|P|p))?$/', $value, $matches);
+		$date = '';
 		if ($match)
 		{
-			// prepare time string
+			// prepare date string
 			$hours = $this->complete(isset($matches[1]) ? $matches[1] : '');
 			$minutes = $this->complete(isset($matches[3]) ? $matches[3] : '');
 			$seconds = $this->complete(isset($matches[5]) ? $matches[5] : '');
@@ -60,18 +90,10 @@ class TimeType implements IType
 				$hoursFormat = $hoursFormat . 'M';
 			}
 			$hoursFormat = strtoupper($hoursFormat);
-			$time = $hours . ':' . $minutes . ':' . $seconds . $hoursFormat;
-
-			// check validation
-			try {
-				$dateObj = new \DateTime($time);
-				$isDate = ($dateObj) ? TRUE : FALSE;
-			} catch (\Exception $e) {
-				$isDate = FALSE;
-			}
+			$date = $hours . ':' . $minutes . ':' . $seconds . $hoursFormat;
 		}
 
-		return $isDate;
+		return $date;
 	}
 
 
@@ -96,17 +118,6 @@ class TimeType implements IType
 		}
 
 		return $value;
-	}
-
-
-	/**
-	 * Return string show in help for infrormation about type of option value
-	 *
-	 * @return string
-	 */
-	public function getHelp()
-	{
-		return 'TIME';
 	}
 
 

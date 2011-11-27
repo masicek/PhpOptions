@@ -9,36 +9,33 @@
 
 namespace PhpOptions;
 
-require_once __DIR__ . '/AType.php';
-
 /**
- * Real type
+ * Abstract type with default functions
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class RealType extends AType
+abstract class AType
 {
 
 	/**
-	 * Flag for check signed/unsigned
+	 * Flag of using filer on value
 	 *
 	 * @var bool
 	 */
-	private $unsigned;
+	protected $useFilter = TRUE;
 
 
 	/**
 	 * Set object
-	 * 'unsigned' => accept only unsigned value
 	 *
 	 * @param array $setting Array of setting of object
 	 */
 	public function __construct($settings = array())
 	{
-		parent::__construct($settings);
-		if (in_array('unsigned', $settings))
+		if (in_array('notFilter', $settings))
 		{
-			$this->unsigned = TRUE;
+			unset($settings[array_search('notFilter', $settings)]);
+			$this->useFilter = FALSE;
 		}
 	}
 
@@ -52,14 +49,7 @@ class RealType extends AType
 	 */
 	public function check($value)
 	{
-		if ($this->unsigned)
-		{
-			return (bool) preg_match('/^[+]?[0-9]+([.,][0-9]+)?$/', $value);
-		}
-		else
-		{
-			return (bool) preg_match('/^[-+]?[0-9]+([.,][0-9]+)?$/', $value);
-		}
+		return TRUE;
 	}
 
 
@@ -70,7 +60,29 @@ class RealType extends AType
 	 */
 	public function getName()
 	{
-		return parent::getName() . ($this->unsigned ? ' UNSIGNED' : '');
+		preg_match('/^(.*\\\)?([^\\\]+)Type$/', get_class($this), $matches);
+		$name = $matches[2];
+		return strtoupper($name);
+	}
+
+
+	/**
+	 * Return modified value, if flag useFiletr is set on TRUE.
+	 *
+	 * @param mixed $value Filtered value
+	 *
+	 * @return mixed
+	 */
+	final public function filter($value)
+	{
+		if ($this->useFilter)
+		{
+			return $this->useFilter($value);
+		}
+		else
+		{
+			return $value;
+		}
 	}
 
 
@@ -83,7 +95,7 @@ class RealType extends AType
 	 */
 	protected function useFilter($value)
 	{
-		return (real)str_replace(',', '.', $value);
+		return $value;
 	}
 
 

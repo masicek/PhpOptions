@@ -9,7 +9,7 @@
 
 namespace PhpOptions;
 
-require_once __DIR__ . '/IType.php';
+require_once __DIR__ . '/AType.php';
 
 /**
  * Date type
@@ -21,8 +21,16 @@ require_once __DIR__ . '/IType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class DateType implements IType
+class DateType extends AType
 {
+
+	/**
+	 * Filtered value return as timestamp
+	 *
+	 * @var bool
+	 */
+	private $timestamp = FALSE;
+
 
 	/**
 	 * Set object
@@ -31,6 +39,11 @@ class DateType implements IType
 	 */
 	public function __construct($settings = array())
 	{
+		parent::__construct($settings);
+		if (in_array('timestamp', $settings))
+		{
+			$this->timestamp = TRUE;
+		}
 	}
 
 
@@ -43,21 +56,14 @@ class DateType implements IType
 	 */
 	public function check($value)
 	{
+		$dateString = $this->getDatetimeString($value);
+
 		$isDate = FALSE;
-
-		// parse value
-		$match = preg_match('/^([0-9]{4})[-.]([0-9a-zA-Z]+)[-.]([0-9]{1,2})$/', $value, $matches);
-		if ($match)
+		if ($dateString)
 		{
-			// prepare date string
-			$year = $matches[1];
-			$month = $this->complete($matches[2]);
-			$day = $this->complete($matches[3]);
-			$date = $year . '-' . $month . '-' . $day . ' 00:00:00';
-
 			// check validation
 			try {
-				$dateObj = new \DateTime($date);
+				$dateObj = new \DateTime($dateString);
 				$isDate = ($dateObj) ? TRUE : FALSE;
 			} catch (\Exception $e) {
 				$isDate = FALSE;
@@ -65,6 +71,54 @@ class DateType implements IType
 		}
 
 		return $isDate;
+	}
+
+
+	/**
+	 * Return modified value
+	 *
+	 * @param mixed $value Filtered value
+	 *
+	 * @return mixed
+	 */
+	protected function useFilter($value)
+	{
+		$dateString = $this->getDatetimeString($value);
+		$date = FALSE;
+		if ($dateString)
+		{
+			$date = new \DateTime($dateString);
+			if ($this->timestamp)
+			{
+				$date = $date->getTimestamp();
+			}
+		}
+		return $date;
+	}
+
+
+	/**
+	 * Return input date formated for DateTime object.
+	 *
+	 * @param string $value
+	 *
+	 * @return string
+	 */
+	private function getDatetimeString($value)
+	{
+		// parse value
+		$match = preg_match('/^([0-9]{4})[-.]([0-9a-zA-Z]+)[-.]([0-9]{1,2})$/', $value, $matches);
+		$date = '';
+		if ($match)
+		{
+			// prepare date string
+			$year = $matches[1];
+			$month = $this->complete($matches[2]);
+			$day = $this->complete($matches[3]);
+			$date = $year . '-' . $month . '-' . $day . ' 00:00:00';
+		}
+
+		return $date;
 	}
 
 
@@ -82,17 +136,6 @@ class DateType implements IType
 			$value = '0' . $value;
 		}
 		return $value;
-	}
-
-
-	/**
-	 * Return string show in help for infrormation about type of option value
-	 *
-	 * @return string
-	 */
-	public function getHelp()
-	{
-		return 'DATE';
 	}
 
 

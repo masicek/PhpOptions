@@ -49,7 +49,7 @@ class Option
 	/**
 	 * Type of expected value
 	 *
-	 * @var IType
+	 * @var AType
 	 */
 	private $type = NULL;
 
@@ -424,7 +424,7 @@ class Option
 		$valueType = 'VALUE';
 		if ($this->type)
 		{
-			$valueType = $this->type->getHelp();
+			$valueType = $this->type->getName();
 		}
 		switch ($this->valueRequired)
 		{
@@ -552,10 +552,14 @@ class Option
 				break;
 		}
 
-		// type of value
-		if (($value !== FALSE) && !is_null($this->type) && !$this->type->check($value))
+		// check type of value + filter value
+		if (($value !== FALSE) && !is_null($this->type))
 		{
-			throw new UserBadCallException($this->getOptions() . ': Option has bad format.');
+			if (!$this->type->check($value))
+			{
+				throw new UserBadCallException($this->getOptions() . ': Option has bad format.');
+			}
+			$value = $this->type->filter($value);
 		}
 
 		return $value;

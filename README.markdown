@@ -28,6 +28,9 @@ Exceptions
 Types
 -----
 
+Read value is filtered specificly for each type.
+This filtering can be stopped by setting 'notFilter' while option is created.
+
 * __string__ - any value
 * __char__ - one character
 * __integer__ - number without decimal part, __signed__/__unsigned__ variant

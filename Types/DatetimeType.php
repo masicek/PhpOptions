@@ -9,7 +9,7 @@
 
 namespace PhpOptions;
 
-require_once __DIR__ . '/IType.php';
+require_once __DIR__ . '/AType.php';
 
 /**
  * Datetime type
@@ -25,8 +25,16 @@ require_once __DIR__ . '/IType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class DatetimeType implements IType
+class DatetimeType extends AType
 {
+
+	/**
+	 * Filtered value return as timestamp
+	 *
+	 * @var bool
+	 */
+	private $timestamp = FALSE;
+
 
 	/**
 	 * Set object
@@ -35,6 +43,11 @@ class DatetimeType implements IType
 	 */
 	public function __construct($settings = array())
 	{
+		parent::__construct($settings);
+		if (in_array('timestamp', $settings))
+		{
+			$this->timestamp = TRUE;
+		}
 	}
 
 
@@ -47,13 +60,62 @@ class DatetimeType implements IType
 	 */
 	public function check($value)
 	{
-		$isDate = FALSE;
+		$dateString = $this->getDatetimeString($value);
 
+		$isDate = FALSE;
+		if ($dateString)
+		{
+			// check validation
+			try {
+				$dateObj = new \DateTime($dateString);
+				$isDate = ($dateObj) ? TRUE : FALSE;
+			} catch (\Exception $e) {
+				$isDate = FALSE;
+			}
+		}
+
+		return $isDate;
+	}
+
+
+	/**
+	 * Return modified value
+	 *
+	 * @param mixed $value Filtered value
+	 *
+	 * @return mixed
+	 */
+	protected function useFilter($value)
+	{
+		$dateString = $this->getDatetimeString($value);
+		$date = FALSE;
+		if ($dateString)
+		{
+			$date = new \DateTime($dateString);
+			if ($this->timestamp)
+			{
+				$date = $date->getTimestamp();
+			}
+		}
+		return $date;
+	}
+
+
+	/**
+	 * Return input date formated for DateTime object.
+	 *
+	 * @param string $value
+	 *
+	 * @return string
+	 */
+	private function getDatetimeString($value)
+	{
 		// parse value
 		$match = preg_match('/^([0-9]{4})[-.]([0-9a-zA-Z]+)[-.]([0-9]{1,2})( +([0-9]{1,2})([-:]([0-9]{1,2})([-:]([0-9]{1,2}))?)?( *(AM|am|A|a|PM|pm|P|p))?)?$/', $value, $matches);
+		$date = '';
 		if ($match)
 		{
-			// prepare datetime string
+			// prepare date string
 			$year = $matches[1];
 			$month = $this->complete($matches[2]);
 			$day = $this->complete($matches[3]);
@@ -67,17 +129,9 @@ class DatetimeType implements IType
 			}
 			$hoursFormat = strtoupper($hoursFormat);
 			$date = $year . '-' . $month . '-' . $day . ' ' . $hours . ':' . $minutes . ':' . $seconds . $hoursFormat;
-
-			// check validation
-			try {
-				$date = new \DateTime($date);
-				$isDate = ($date) ? TRUE : FALSE;
-			} catch (\Exception $e) {
-				$isDate = FALSE;
-			}
 		}
 
-		return $isDate;
+		return $date;
 	}
 
 
@@ -102,17 +156,6 @@ class DatetimeType implements IType
 		}
 
 		return $value;
-	}
-
-
-	/**
-	 * Return string show in help for infrormation about type of option value
-	 *
-	 * @return string
-	 */
-	public function getHelp()
-	{
-		return 'DATETIME';
 	}
 
 

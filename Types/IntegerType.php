@@ -9,14 +9,14 @@
 
 namespace PhpOptions;
 
-require_once __DIR__ . '/IType.php';
+require_once __DIR__ . '/AType.php';
 
 /**
  * Integer type
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class IntegerType implements IType
+class IntegerType extends AType
 {
 
 	/**
@@ -35,7 +35,11 @@ class IntegerType implements IType
 	 */
 	public function __construct($settings = array())
 	{
-		$this->unsigned = (bool)in_array('unsigned', $settings);
+		parent::__construct($settings);
+		if (in_array('unsigned', $settings))
+		{
+			$this->unsigned = TRUE;
+		}
 	}
 
 
@@ -60,13 +64,26 @@ class IntegerType implements IType
 
 
 	/**
-	 * Return string show in help for infrormation about type of option value
+	 * Return uppercase name of type
 	 *
 	 * @return string
 	 */
-	public function getHelp()
+	public function getName()
 	{
-		return 'INTEGER' . ($this->unsigned ? ' UNSIGNED' : '');
+		return parent::getName() . ($this->unsigned ? ' UNSIGNED' : '');
+	}
+
+
+	/**
+	 * Return modified value
+	 *
+	 * @param mixed $value Filtered value
+	 *
+	 * @return mixed
+	 */
+	protected function useFilter($value)
+	{
+		return (integer)$value;
 	}
 
 

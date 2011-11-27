@@ -9,23 +9,37 @@
 
 namespace PhpOptions;
 
-require_once __DIR__ . '/IType.php';
+require_once __DIR__ . '/AType.php';
 
 /**
  * Directory type
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class DirectoryType implements IType
+class DirectoryType extends AType
 {
 
 	/**
+	 * Base path for check input path
+	 *
+	 * @var string
+	 */
+	private $base = NULL;
+
+
+	/**
 	 * Set object
+	 * 'base' => base path of input value
 	 *
 	 * @param array $setting Array of setting of object
 	 */
 	public function __construct($settings = array())
 	{
+		parent::__construct($settings);
+		if (isset($settings[0]))
+		{
+			$this->base = $settings[0];
+		}
 	}
 
 
@@ -38,18 +52,59 @@ class DirectoryType implements IType
 	 */
 	public function check($value)
 	{
-		return is_dir($value);
+		$isDir = FALSE;
+		if (is_dir($value))
+		{
+			$isDir = TRUE;
+		}
+		elseif ($this->base && is_dir($this->base . DIRECTORY_SEPARATOR . $value))
+		{
+			$isDir = TRUE;
+		}
+		return $isDir;
 	}
 
 
 	/**
-	 * Return string show in help for infrormation about type of option value
+	 * Return modified value
+	 *
+	 * @param mixed $value Filtered value
+	 *
+	 * @return mixed
+	 */
+	protected function useFilter($value)
+	{
+		// base is set and value not full path
+		if ($this->base && !preg_match('/^([a-zA-Z]:\\\|\/)/', $value))
+		{
+			$value = $this->make($this->base, $value , '/');
+		}
+
+		return $value;
+	}
+
+
+	/**
+	 * Make path from list of arguments.
 	 *
 	 * @return string
 	 */
-	public function getHelp()
+	private function make()
 	{
-		return 'DIRECTORY';
+		$pathParts = func_get_args();
+
+		$ds = DIRECTORY_SEPARATOR;
+		$path = implode($ds, $pathParts);
+
+		// correct separator
+		$path = str_replace('/', $ds, $path);
+		$path = str_replace('\\', $ds, $path);
+
+		// replace "/./" and "//"
+		$path = str_replace($ds . $ds, $ds, $path);
+		$path = str_replace($ds . '.' . $ds, $ds, $path);
+
+		return $path;
 	}
 
 

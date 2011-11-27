@@ -22,15 +22,16 @@ class Types
 	 */
 	const TYPE_STRING = 'string';
 	const TYPE_CHAR = 'char';
-	const TYPE_INTEGER = 'integer'; // unsigned
-	const TYPE_REAL = 'real'; // unsigned
+	const TYPE_INTEGER = 'integer';
+	const TYPE_REAL = 'real';
 	const TYPE_DATE = 'date';
 	const TYPE_TIME = 'time';
 	const TYPE_DATETIME = 'datetime';
-	const TYPE_DIRECTORY = 'directory'; // exist
-	const TYPE_FILE = 'file'; // exist
+	const TYPE_DIRECTORY = 'directory';
+	const TYPE_FILE = 'file';
 	const TYPE_EMAIL = 'email';
-	const TYPE_ENUM = 'enum'; // array of values
+	const TYPE_ENUM = 'enum';
+	const TYPE_SERIES = 'series';
 
 
 	/**
@@ -52,6 +53,7 @@ class Types
 			self::TYPE_FILE,
 			self::TYPE_EMAIL,
 			self::TYPE_ENUM,
+			self::TYPE_SERIES,
 		);
 	}
 

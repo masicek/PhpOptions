@@ -44,7 +44,7 @@ class EnumType extends AType
 		$values = isset($settings[0]) ? $settings[0] : array();
 		if (!is_array($values))
 		{
-			$values = preg_replace('/[,; |]/', ',', $values);
+			$values = preg_replace('/[,; |]+/', ',', $values);
 			$values = explode(',', $values);
 			$this->useFilter = FALSE;
 		}

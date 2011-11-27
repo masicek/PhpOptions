@@ -42,3 +42,5 @@ This filtering can be stopped by setting 'notFilter' while option is created.
 * __file__ - expect path of exist file
 * __email__ - check corect format of email
 * __enum__ - chech if value is one of expected set options
+* __series__ (__array__) - input string is delimited into array
+(for [PHP keywords](http://php.net/manual/en/reserved.keywords.php) cannot be used _array_ as name of type, so _series_ is used)

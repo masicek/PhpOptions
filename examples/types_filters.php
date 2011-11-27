@@ -7,7 +7,7 @@
  *
  * Possible using:
  * php types_filters.php
- * php types_filters.php -s "Lorem ipsum" -c "x" -i "-1234" --iu 999 -r "-888.222" --ru 777.05 -d "2001-02-5" --dt "2011-dec-12 2:00PM" -t 3PM --dir "../Types/" -f "../Types/IType.php" -e viktor@masicek.net --enum bbb
+ * php types_filters.php -s "Lorem ipsum" -c "x" -i "-1234" --iu 999 -r "-888.222" --ru 777.05 -d "2001-02-5" --dt "2011-dec-12 2:00PM" -t 3PM --dir "../Types/" -f "../Types/IType.php" -e viktor@masicek.net --enum bbb -a "aa, bb,cc"
  */
 
 require_once __DIR__ . '/../Options.php';
@@ -40,6 +40,8 @@ try {
 	$optionsList[] = Option::enum('Enum', array('A' => 'a', 'B' => 'bbb', 'C' => 1234))->short();
 //	$optionsList[] = Option::enum('Enum', array('A' => 'a', 'B' => 'bbb', 'C' => 1234), 'notFilter')->short();
 //	$optionsList[] = Option::enum('Enum', 'a,bbb,1234')->short();
+	$optionsList[] = Option::series('Array');
+//	$optionsList[] = Option::series('Array', '#');
 
 	$options = new Options();
 	$options->add($optionsList);
@@ -71,3 +73,4 @@ echo 'Directory: ' . $options->get('Directory') . "\n";
 echo 'File: ' . $options->get('File') . "\n";
 echo 'Email: ' . $options->get('Email') . "\n";
 echo 'Enum: ' . $options->get('Enum') . "\n";
+echo 'Array: ' . var_dump($options->get('Array')) . "\n";

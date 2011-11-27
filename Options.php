@@ -21,6 +21,11 @@ class Options
 {
 
 	/**
+	 * Version of PhpOptions
+	 */
+	const VERSION = '0.9.0';
+
+	/**
 	 * List of possible options
 	 *
 	 * @var array of Option

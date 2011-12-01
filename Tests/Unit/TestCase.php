@@ -45,7 +45,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	 * </pre>
 	 *
 	 * @param string|object	$object Neme of class (for static property) or instance of class
-	 * @param string $property	Name of property
+	 * @param string $property Name of property
 	 * @param mixed $value New value
 	 *
 	 * @return void
@@ -60,6 +60,30 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
 		$property = $this->getAccessibleProperty(isset($class) ? $class : $object, $property);
 		$property->setValue($object, $value);
+	}
+
+
+	/**
+	 * Return value of protected / private property.
+	 *
+	 * If you want to read the value of private property, which not define the object, but a parent,
+	 * you need to specify the form $property "Class::$propertyName", where Class is class, which the property defined.
+	 *
+	 * @param string|object $object Neme of class (for static property) or instance of class
+	 * @param string $property Name of property
+	 *
+	 * @return mixed
+	 */
+	protected function getPropertyValue($object, $property)
+	{
+		if (($pos = strpos($property, '::$')) !== FALSE)
+		{
+			$class = substr($property, 0, $pos);
+			$property = substr($property, $pos + 3);
+		}
+
+		$property = $this->getAccessibleProperty(isset($class) ? $class : $object, $property);
+		return $property->getValue($object);
 	}
 
 

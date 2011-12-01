@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * PhpOption
+ * @link git@github.com:masicek/PhpOptions.git
+ * @author Viktor Mašíček <viktor@masicek.net>
+ * @license "New" BSD License
+ */
+
+namespace Tests\PhpOptions\AType;
+
+require_once ROOT . '/Types/AType.php';
+
+/**
+ * Test type for make tests of abstract class AType
+ *
+ * @author Viktor Mašíček <viktor@masicek.net>
+ */
+class FooType extends \PhpOptions\AType
+{
+
+
+	protected function useFilter($value)
+	{
+		return 'Test filtered value';
+	}
+
+
+}

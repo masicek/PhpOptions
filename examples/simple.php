@@ -19,6 +19,7 @@
  * php simple.php --home-dir
  * php simple.php --home-dir="./home/novakj"
  * php simple.php --name "Jan Novak" --home-dir="./home/novakj"
+ * php simple.php --name "Jan Novak" -f "blue" -c "green"
  *
  * Exception terminated:
  * php simple.php -n
@@ -39,6 +40,8 @@ try {
 	$optionsList[] = Option::make('Name')->description('Name of user')->value();
 	$optionsList[] = Option::make('Home')->short()->long('home-dir')->value(FALSE)->def('./home/common')
 		->description('Home directory of user');
+	$optionsList[] = Option::make('Favorite color')->description('User`s favorite color')->value();
+	$optionsList[] = Option::make('Color of eye')->description('User`s color of eye')->value();
 
 	$options = new Options();
 	$options->add($optionsList);
@@ -67,4 +70,16 @@ $homeDir = $options->get('Home');
 if ($homeDir)
 {
 	echo $homeDir . "\n";
+}
+
+$favoriteCollor = $options->get('-f');
+if ($favoriteCollor)
+{
+	echo $favoriteCollor . "\n";
+}
+
+$eyeColor = $options->get('--color-of-eye');
+if ($eyeColor)
+{
+	echo $eyeColor . "\n";
 }

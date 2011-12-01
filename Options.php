@@ -23,7 +23,7 @@ class Options
 	/**
 	 * Version of PhpOptions
 	 */
-	const VERSION = '0.9.0';
+	const VERSION = '0.9.1';
 
 	/**
 	 * List of possible options
@@ -38,6 +38,20 @@ class Options
 	 * @var array ([name of option] => [value of option])
 	 */
 	private $optionsValues = array();
+
+	/**
+	 * Mapping short variants to name of options
+	 *
+	 * @var array ([short variant] => [name of option])
+	 */
+	private $optionsShorts = array();
+
+	/**
+	 * Mapping long variants to name of options
+	 *
+	 * @var array ([long variant] => [name of option])
+	 */
+	private $optionsLongs = array();
 
 	/**
 	 * Default option and its value
@@ -155,16 +169,31 @@ class Options
 	 * For set option without value return TRUE.
 	 * If option is not set, return FALSE.
 	 *
-	 * @param string $name Name of option
+	 * @param string $name Name of option or short or long option with prefix ('-' or '--')
 	 *
 	 * @throws InvalidArgumentException Unknown option
 	 * @return mixed
 	 */
 	public function get($name)
 	{
+		$nameInput = $name;
+
+		// long variant to name
+		if (substr($name, 0, 2) == '--')
+		{
+			$long = substr($name, 2);
+			$name = isset($this->optionsLongs[$long]) ? $this->optionsLongs[$long] : NULL;
+		}
+		// short variant to name
+		elseif (substr($name, 0, 1) == '-')
+		{
+			$short = substr($name, 1);
+			$name = isset($this->optionsShorts[$short]) ? $this->optionsShorts[$short] : NULL;
+		}
+
 		if (!isset($this->optionsValues[$name]))
 		{
-			throw new InvalidArgumentException($name . ': Unknown option.');
+			throw new InvalidArgumentException($nameInput . ': Unknown option.');
 		}
 
 		// default option
@@ -315,6 +344,14 @@ class Options
 		$this->checkConflicts($option);
 		$this->options[$option->getName()] = $option;
 		$this->optionsValues[$option->getName()] = $option->getValue((bool)($this->default['value']));
+		if ($option->getShort())
+		{
+			$this->optionsShorts[$option->getShort()] = $option->getName();
+		}
+		if ($option->getLong())
+		{
+			$this->optionsLongs[$option->getLong()] = $option->getName();
+		}
 	}
 
 

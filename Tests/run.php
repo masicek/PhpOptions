@@ -19,6 +19,9 @@ require_once 'PHPUnit/Autoload.php';
 // include my TestCase
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Unit' . DIRECTORY_SEPARATOR . 'TestCase.php';
 
+// path to tested classes
+define('ROOT', __DIR__ . DIRECTORY_SEPARATOR . '..');
+
 // simulate command line runnig (set arguments)
 $bootScript = 'boot.php';
 $testDirectory = '.' . DIRECTORY_SEPARATOR . 'Unit';

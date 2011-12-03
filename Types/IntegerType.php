@@ -24,7 +24,7 @@ class IntegerType extends AType
 	 *
 	 * @var bool
 	 */
-	private $unsigned;
+	private $unsigned = FALSE;
 
 
 	/**

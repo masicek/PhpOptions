@@ -24,7 +24,7 @@ class RealType extends AType
 	 *
 	 * @var bool
 	 */
-	private $unsigned;
+	private $unsigned = FALSE;
 
 
 	/**

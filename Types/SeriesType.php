@@ -62,8 +62,8 @@ class SeriesType extends AType
 	 */
 	protected function useFilter($value)
 	{
-		$value = preg_replace('/[' . $this->delimiters . ']+/', ',', $value);
-		return explode(',', $value);
+		$value = preg_replace('/[' . $this->delimiters . ']+/', $this->delimiters[0], $value);
+		return explode($this->delimiters[0], $value);
 	}
 
 

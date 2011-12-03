@@ -23,9 +23,11 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Unit' . DIRECTORY_SEPARATOR . 'Tes
 define('ROOT', __DIR__ . DIRECTORY_SEPARATOR . '..');
 
 // simulate command line runnig (set arguments)
-$bootScript = 'boot.php';
-$testDirectory = '.' . DIRECTORY_SEPARATOR . 'Unit';
-$_SERVER['argv'] = array($bootScript, $testDirectory);
+$argv = $_SERVER['argv'];
+$arg[0] = 'boot.php';
+// tests
+$argv[] = '.' . DIRECTORY_SEPARATOR . 'Unit';
+$_SERVER['argv'] = $argv;
 
 // run tests
 PHPUnit_TextUI_Command::main();

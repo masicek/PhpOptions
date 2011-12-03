@@ -84,7 +84,7 @@ class TimeType extends AType
 			$hours = $this->complete(isset($matches[1]) ? $matches[1] : '');
 			$minutes = $this->complete(isset($matches[3]) ? $matches[3] : '');
 			$seconds = $this->complete(isset($matches[5]) ? $matches[5] : '');
-			$hoursFormat = isset($matches[11]) ? $matches[11] : '';
+			$hoursFormat = isset($matches[7]) ? $matches[7] : '';
 			if (strlen($hoursFormat) == 1)
 			{
 				$hoursFormat = $hoursFormat . 'M';

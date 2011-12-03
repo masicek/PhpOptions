@@ -20,6 +20,12 @@ class FooType extends \PhpOptions\AType
 {
 
 
+	public function __construct($settings = array())
+	{
+		parent::__construct($settings);
+	}
+
+
 	protected function useFilter($value)
 	{
 		return 'Test filtered value';

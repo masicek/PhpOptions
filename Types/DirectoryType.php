@@ -77,8 +77,9 @@ class DirectoryType extends AType
 		// base is set and value not full path
 		if ($this->base && !preg_match('/^([a-zA-Z]:\\\|\/)/', $value))
 		{
-			$value = $this->make($this->base, $value , '/');
+			$value = $this->make($this->base, $value);
 		}
+		$value = $this->make($value , '/');
 
 		return $value;
 	}
@@ -101,8 +102,11 @@ class DirectoryType extends AType
 		$path = str_replace('\\', $ds, $path);
 
 		// replace "/./" and "//"
-		$path = str_replace($ds . $ds, $ds, $path);
-		$path = str_replace($ds . '.' . $ds, $ds, $path);
+		while (strpos($path, $ds . '.' . $ds) !== FALSE || strpos($path, $ds . $ds) !== FALSE)
+		{
+			$path = str_replace($ds . $ds, $ds, $path);
+			$path = str_replace($ds . '.' . $ds, $ds, $path);
+		}
 
 		return $path;
 	}

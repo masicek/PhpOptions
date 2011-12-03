@@ -30,7 +30,7 @@ abstract class AType
 	 *
 	 * @param array $setting Array of setting of object
 	 */
-	public function __construct($settings = array())
+	public function __construct(&$settings = array())
 	{
 		if (in_array('notFilter', $settings))
 		{

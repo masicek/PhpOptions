@@ -16,6 +16,8 @@ require_once __DIR__ . '/AType.php';
  *
  * List of possible values can be set as array
  * or sring, that will by delimited by "," or " " or ";" or "|".
+ * Filtered value is key of coresponded value in settings.
+ * If values are set by string, values are not filtered by default.
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
@@ -27,13 +29,13 @@ class EnumType extends AType
 	 *
 	 * @var array
 	 */
-	private $values;
+	private $values = array();
 
 
 	/**
 	 * Set object
 	 * First setting is list of possible values.
-	 * If it is not array, ther list is make from substring delimited by "," or " " or ";" or "|"
+	 * If it is not array, then list is make from substring delimited by "," or " " or ";" or "|"
 	 *
 	 * @param array $setting Array of setting of object
 	 */

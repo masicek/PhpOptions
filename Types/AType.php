@@ -37,6 +37,9 @@ abstract class AType
 			unset($settings[array_search('notFilter', $settings)]);
 			$this->useFilter = FALSE;
 		}
+
+		// reset indexing
+		$settings = array_values($settings);
 	}
 
 

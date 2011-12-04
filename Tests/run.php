@@ -25,6 +25,8 @@ define('ROOT', __DIR__ . DIRECTORY_SEPARATOR . '..');
 // simulate command line runnig (set arguments)
 $argv = $_SERVER['argv'];
 $arg[0] = 'boot.php';
+// set strict mode
+$arg[] = '--strict';
 // tests
 $argv[] = '.' . DIRECTORY_SEPARATOR . 'Unit';
 $_SERVER['argv'] = $argv;

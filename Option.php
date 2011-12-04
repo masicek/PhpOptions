@@ -114,7 +114,7 @@ class Option
 
 
 	/**
-	 * Set name of optiona and default short and long variant in command-line
+	 * Set name of option and default short and long variant in command-line
 	 * @todo accept array as second parameere for setting all object
 	 *
 	 * @param string $name Name of option
@@ -310,6 +310,7 @@ class Option
 	public function dependences($needed)
 	{
 		$this->needed = $needed;
+		return $this;
 	}
 
 
@@ -537,7 +538,7 @@ class Option
 
 			case self::VALUE_OPTIONAL:
 				// use default value for not set option or empty set option
-				if (is_bool($value))
+				if (is_bool($value) && !is_null($this->default))
 				{
 					$value = $this->default;
 				}

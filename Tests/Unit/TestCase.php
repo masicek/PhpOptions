@@ -9,6 +9,8 @@
 
 namespace Tests\PhpOptions;
 
+require_once ROOT . '/Arguments.php';
+
 /**
  * Extends of PHPUnit TestCase class.
  *

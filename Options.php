@@ -225,7 +225,7 @@ class Options
 
 		if (!isset($this->optionsValues[$main]))
 		{
-			throw new InvalidArgumentException($name . ': Unknown option.');
+			throw new InvalidArgumentException($main . ': Unknown option.');
 		}
 
 		$neededOptions = array();
@@ -262,13 +262,13 @@ class Options
 	 * Define groups of options
 	 *
 	 * @param string $name Name of group
-	 * @param string|array $options List of options
+	 * @param string|array $options List of options names
 	 *
 	 * @return Options
 	 */
 	public function group($name, $options)
 	{
-		if (in_array($name, $this->groups))
+		if (in_array($name, array_keys($this->groups)))
 		{
 			throw new LogicException($name . ': Group already exists.');
 		}
@@ -342,15 +342,16 @@ class Options
 	private function addOne(Option $option)
 	{
 		$this->checkConflicts($option);
-		$this->options[$option->getName()] = $option;
-		$this->optionsValues[$option->getName()] = $option->getValue((bool)($this->default['value']));
+		$name = $option->getName();
+		$this->options[$name] = $option;
+		$this->optionsValues[$name] = $option->getValue((bool)($this->default['value']));
 		if ($option->getShort())
 		{
-			$this->optionsShorts[$option->getShort()] = $option->getName();
+			$this->optionsShorts[$option->getShort()] = $name;
 		}
 		if ($option->getLong())
 		{
-			$this->optionsLongs[$option->getLong()] = $option->getName();
+			$this->optionsLongs[$option->getLong()] = $name;
 		}
 	}
 
@@ -374,58 +375,16 @@ class Options
 		}
 
 		$short = $option->getShort();
-		if (in_array($short, $this->getAllShorts()))
+		if (in_array($short, array_keys($this->optionsShorts)))
 		{
 			throw new LogicException($name . ': Option with short variant "' . $short . '" already exists.');
 		}
 
 		$long = $option->getLong();
-		if (in_array($long, $this->getAllLongs()))
+		if (in_array($long, array_keys($this->optionsLongs)))
 		{
 			throw new LogicException($name . ': Option with long variant "' . $long . '" already exists.');
 		}
-	}
-
-
-	/**
-	 * Return list of all shorts options defined in aded options
-	 * @todo cache returned value
-	 *
-	 * @return array
-	 */
-	private function getAllShorts()
-	{
-		$shorts = array();
-		foreach ($this->options as $option)
-		{
-			$short = $option->getShort();
-			if (!is_null($short))
-			{
-				$shorts[] = $short;
-			}
-		}
-		return $shorts;
-	}
-
-
-	/**
-	 * Return list of all longs options defined in aded options
-	 * @todo cache returned value
-	 *
-	 * @return array
-	 */
-	private function getAllLongs()
-	{
-		$longs = array();
-		foreach ($this->options as $option)
-		{
-			$long = $option->getLong();
-			if (!is_null($long))
-			{
-				$longs[] = $long;
-			}
-		}
-		return $longs;
 	}
 
 

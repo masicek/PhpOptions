@@ -20,6 +20,8 @@ require_once ROOT . '/Types/DateType.php';
  * @author Viktor Mašíček <viktor@masicek.net>
  *
  * @covers PhpOptions\DateType::check
+ * @covers PhpOptions\DateType::getDatetimeString
+ * @covers PhpOptions\DateType::complete
  */
 class CheckTest extends TestCase
 {

@@ -20,7 +20,7 @@ require_once ROOT . '/Exceptions.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\Option::description
+ * @covers PhpOptions\Option::dependences
  */
 class DependencesTest extends TestCase
 {

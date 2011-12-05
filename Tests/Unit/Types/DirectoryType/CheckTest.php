@@ -34,8 +34,10 @@ class CheckTest extends TestCase
 
 	public function testWithBaseOk()
 	{
-		$type = new DirectoryType(array(__DIR__));
-		$this->assertTrue($type->check('../'));
+		$d = DIRECTORY_SEPARATOR;
+		$base = dirname(__DIR__);
+		$type = new DirectoryType(array($base));
+		$this->assertTrue($type->check('DirectoryType'));
 	}
 
 

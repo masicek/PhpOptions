@@ -19,7 +19,7 @@ require_once ROOT . '/Types/TimeType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions/TimeType::useFilter
+ * @covers PhpOptions\TimeType::useFilter
  */
 class UseFilterTest extends TestCase
 {

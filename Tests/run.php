@@ -27,6 +27,9 @@ $argv = $_SERVER['argv'];
 $arg[0] = 'boot.php';
 // set strict mode
 $arg[] = '--strict';
+// generate code coverage
+$argv[] = '--coverage-html';
+$argv[] = './Coverage';
 // tests
 $argv[] = '.' . DIRECTORY_SEPARATOR . 'Unit';
 $_SERVER['argv'] = $argv;

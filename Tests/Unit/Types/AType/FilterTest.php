@@ -19,6 +19,7 @@ require_once 'FooType.php';
  * @author Viktor Mašíček <viktor@masicek.net>
  *
  * @covers PhpOptions\AType::filter
+ * @covers PhpOptions\AType::useFilter
  */
 class FilterTest extends TestCase
 {
@@ -28,6 +29,13 @@ class FilterTest extends TestCase
 	{
 		$type = new FooType();
 		$this->assertEquals('Test filtered value', $type->filter('Lorem ipsum'));
+	}
+
+
+	public function testUseFilterParent()
+	{
+		$type = new \PhpOptions\StringType();
+		$this->assertEquals('Lorem ipsum', $type->filter('Lorem ipsum'));
 	}
 
 

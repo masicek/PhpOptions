@@ -19,7 +19,7 @@ require_once ROOT . '/Types/SeriesType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions/SeriesType::useFilter
+ * @covers PhpOptions\SeriesType::useFilter
  */
 class UseFilterTest extends TestCase
 {

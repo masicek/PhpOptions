@@ -19,7 +19,7 @@ require_once ROOT . '/Types/SeriesType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\RealType::__construct
+ * @covers PhpOptions\SeriesType::__construct
  */
 class SeriesTypeTest extends TestCase
 {

@@ -19,7 +19,8 @@ require_once ROOT . '/Types/FileType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions/FileType::useFilter
+ * @covers PhpOptions\FileType::useFilter
+ * @covers PhpOptions\FileType::make
  */
 class UseFilterTest extends TestCase
 {

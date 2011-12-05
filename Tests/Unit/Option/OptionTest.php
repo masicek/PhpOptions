@@ -25,6 +25,7 @@ require_once ROOT . '/Exceptions.php';
  * @covers PhpOptions\Option::getShort
  * @covers PhpOptions\Option::getLong
  * @covers PhpOptions\Option::make
+ * @covers PhpOptions\Option::__callStatic
  */
 class OptionTest extends TestCase
 {
@@ -93,6 +94,13 @@ class OptionTest extends TestCase
 		$type = $this->getPropertyValue($option, 'type');
 		$this->assertInstanceOf('\PhpOptions\StringType', $type);
 		$this->assertFalse($this->getPropertyValue($type, 'useFilter'));
+	}
+
+
+	public function testUnknownType()
+	{
+		$this->setExpectedException('\PhpOptions\UndefinedMethodException');
+		$option = Option::unknown('Foo');
 	}
 
 

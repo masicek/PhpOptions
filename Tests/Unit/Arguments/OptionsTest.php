@@ -19,6 +19,8 @@ require_once ROOT . '/Arguments.php';
  * @author Viktor Mašíček <viktor@masicek.net>
  *
  * @covers PhpOptions\Arguments::options
+ * @covers PhpOptions\Arguments::setAll
+ * @covers PhpOptions\Arguments::readAll
  */
 class OptionsTest extends TestCase
 {

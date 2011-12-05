@@ -19,7 +19,7 @@ require_once ROOT . '/Types/DatetimeType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions/DatetimeType::useFilter
+ * @covers PhpOptions\DatetimeType::useFilter
  */
 class UseFilterTest extends TestCase
 {

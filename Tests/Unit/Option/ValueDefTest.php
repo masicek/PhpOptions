@@ -45,7 +45,7 @@ class ValueDefTest extends TestCase
 	public function testRequiredValueDefaultValue()
 	{
 		$this->setExpectedException('\PhpOptions\LogicException');
-		$option = Option::make('Foo')->def('Lorem ipsum')->value();
+		$option = Option::make('Foo')->value(FALSE)->def('Lorem ipsum')->value();
 	}
 
 

@@ -19,7 +19,7 @@ require_once ROOT . '/Types/EnumType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions/EnumType::useFilter
+ * @covers PhpOptions\EnumType::useFilter
  */
 class UseFilterTest extends TestCase
 {

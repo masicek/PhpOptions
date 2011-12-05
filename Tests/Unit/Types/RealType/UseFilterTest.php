@@ -19,7 +19,7 @@ require_once ROOT . '/Types/RealType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions/RealType::useFilter
+ * @covers PhpOptions\RealType::useFilter
  */
 class UseFilterTest extends TestCase
 {

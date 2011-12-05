@@ -19,7 +19,7 @@ require_once ROOT . '/Types/IntegerType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions/IntegerType::useFilter
+ * @covers PhpOptions\IntegerType::useFilter
  */
 class UseFilterTest extends TestCase
 {

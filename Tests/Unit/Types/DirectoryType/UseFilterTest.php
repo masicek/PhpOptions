@@ -19,7 +19,8 @@ require_once ROOT . '/Types/DirectoryType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions/DirectoryType::useFilter
+ * @covers PhpOptions\DirectoryType::useFilter
+ * @covers PhpOptions\DirectoryType::make
  */
 class UseFilterTest extends TestCase
 {

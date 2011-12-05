@@ -20,6 +20,8 @@ require_once ROOT . '/Types/TimeType.php';
  * @author Viktor Mašíček <viktor@masicek.net>
  *
  * @covers PhpOptions\TimeType::check
+ * @covers PhpOptions\TimeType::getTimeString
+ * @covers PhpOptions\TimeType::complete
  */
 class CheckTest extends TestCase
 {
@@ -86,6 +88,7 @@ class CheckTest extends TestCase
 			array('10:0521', FALSE),
 			array('10:100:50', FALSE),
 			array('210:10:50', FALSE),
+			array('01:01:70', FALSE),
 		);
 	}
 

@@ -19,6 +19,15 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
 
 	/**
+	 * Clean cache of simulated command-line arguments before each test
+	 */
+	public function setUp()
+	{
+		$this->setPropertyValue('Arguments', 'PhpOptions\Arguments::$options', NULL);
+	}
+
+
+	/**
 	 * Simulate input command-line arguments
 	 *
 	 * @param string $arguments List of arguments
@@ -28,7 +37,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	protected function setArguments($arguments, $delimiter = ' ')
 	{
 		$arguments = str_replace('"', '', $arguments);
-		$argv = explode($delimiter, 'my_script.php' . $delimiter . $arguments);
+		$argv = explode($delimiter, trim('my_script.php' . $delimiter . $arguments));
 		$_SERVER['argv'] = $argv;
 	}
 

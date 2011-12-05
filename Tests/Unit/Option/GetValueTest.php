@@ -27,12 +27,6 @@ class GetValueTest extends TestCase
 {
 
 
-	public function setUp()
-	{
-		$this->setPropertyValue('Arguments', 'PhpOptions\Arguments::$options', NULL);
-	}
-
-
 	public function testShortAndLongTogether()
 	{
 		$this->setArguments('-f --foo');

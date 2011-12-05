@@ -133,12 +133,6 @@ class Arguments
 				// short options (exception for signed integer and real)
 				elseif (substr($arg, 0, 1) == '-' && !(preg_match('/^-[0-9]+([.,][0-9]+)?$/', $arg)))
 				{
-					// exception for signed integer and real
-					if (preg_match('/^[0-9]+$/', substr($arg, 1)))
-					{
-						// it is value
-					}
-
 					foreach (str_split(substr($arg, 1)) as $char)
 					{
 						$cmdOptions[$char] = TRUE;

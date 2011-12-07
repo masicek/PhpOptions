@@ -32,6 +32,7 @@ class Types
 	const TYPE_EMAIL = 'email';
 	const TYPE_ENUM = 'enum';
 	const TYPE_SERIES = 'series';
+	const TYPE_INIFILE = 'inifile';
 
 
 	/**
@@ -54,6 +55,7 @@ class Types
 			self::TYPE_EMAIL,
 			self::TYPE_ENUM,
 			self::TYPE_SERIES,
+			self::TYPE_INIFILE,
 		);
 	}
 

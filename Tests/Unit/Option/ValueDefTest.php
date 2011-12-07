@@ -21,31 +21,31 @@ require_once ROOT . '/Exceptions.php';
  * @author Viktor Mašíček <viktor@masicek.net>
  *
  * @covers PhpOptions\Option::value
- * @covers PhpOptions\Option::def
- * @covers PhpOptions\Option::getDef
+ * @covers PhpOptions\Option::defaults
+ * @covers PhpOptions\Option::getDefaults
  */
 class ValueDefTest extends TestCase
 {
 
 
-	public function testDefaultValueNoValue()
+	public function testDefaultsValueNoValue()
 	{
 		$this->setExpectedException('\PhpOptions\LogicException');
-		$option = Option::make('Foo')->def('Lorem ipsum');
+		$option = Option::make('Foo')->defaults('Lorem ipsum');
 	}
 
 
-	public function testDefaultValueRequiredValue()
+	public function testDefaultsValueRequiredValue()
 	{
 		$this->setExpectedException('\PhpOptions\LogicException');
-		$option = Option::make('Foo')->value()->def('Lorem ipsum');
+		$option = Option::make('Foo')->value()->defaults('Lorem ipsum');
 	}
 
 
 	public function testRequiredValueDefaultValue()
 	{
 		$this->setExpectedException('\PhpOptions\LogicException');
-		$option = Option::make('Foo')->value(FALSE)->def('Lorem ipsum')->value();
+		$option = Option::make('Foo')->value(FALSE)->defaults('Lorem ipsum')->value();
 	}
 
 
@@ -77,15 +77,15 @@ class ValueDefTest extends TestCase
 	{
 		$option = Option::make('Foo');
 		$this->assertInstanceOf('\PhpOptions\Option', $option);
-		$this->assertEquals(NULL, $option->getDef());
+		$this->assertEquals(NULL, $option->getDefaults());
 	}
 
 
 	public function testSetDefaultValue()
 	{
-		$option = Option::make('Foo')->value(FALSE)->def('Lorem ipsum');
+		$option = Option::make('Foo')->value(FALSE)->defaults('Lorem ipsum');
 		$this->assertInstanceOf('\PhpOptions\Option', $option);
-		$this->assertEquals('Lorem ipsum', $option->getDef());
+		$this->assertEquals('Lorem ipsum', $option->getDefaults());
 	}
 
 

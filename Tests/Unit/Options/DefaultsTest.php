@@ -19,13 +19,13 @@ require_once ROOT . '/Exceptions.php';
 
 
 /**
- * DefTest
+ * DefaultsTest
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\Options::def
+ * @covers PhpOptions\Options::defaults
  */
-class DefTest extends TestCase
+class DefaultsTest extends TestCase
 {
 
 
@@ -33,7 +33,7 @@ class DefTest extends TestCase
 	{
 		$options = new Options();
 		$this->setExpectedException('\PhpOptions\InvalidArgumentException');
-		$options->def('Foo');
+		$options->defaults('Foo');
 	}
 
 
@@ -41,8 +41,8 @@ class DefTest extends TestCase
 	{
 		$options = new Options();
 		$options->add(Option::make('Foo'));
-		$this->assertInstanceOf('\PhpOptions\Options', $options->def('Foo'));
-		$defaultOption = $this->getPropertyValue($options, 'default');
+		$this->assertInstanceOf('\PhpOptions\Options', $options->defaults('Foo'));
+		$defaultOption = $this->getPropertyValue($options, 'defaults');
 		$this->assertEquals(array('name' => 'Foo', 'value' => TRUE), $defaultOption);
 	}
 
@@ -50,9 +50,9 @@ class DefTest extends TestCase
 	public function testOptionWithDefaultValue()
 	{
 		$options = new Options();
-		$options->add(Option::make('Foo')->value(FALSE)->def('lorem ipsum'));
-		$this->assertInstanceOf('\PhpOptions\Options', $options->def('Foo'));
-		$defaultOption = $this->getPropertyValue($options, 'default');
+		$options->add(Option::make('Foo')->value(FALSE)->defaults('lorem ipsum'));
+		$this->assertInstanceOf('\PhpOptions\Options', $options->defaults('Foo'));
+		$defaultOption = $this->getPropertyValue($options, 'defaults');
 		$this->assertEquals(array('name' => 'Foo', 'value' => 'lorem ipsum'), $defaultOption);
 	}
 

@@ -118,10 +118,10 @@ class GetValueTest extends TestCase
 	}
 
 
-	public function testOptionalValueAndValueNotSetAndDefaultSet()
+	public function testOptionalValueAndValueNotSetAndDefaultsSet()
 	{
 		$this->setArguments('-f');
-		$option = Option::make('foo')->value(FALSE)->def('lorem');
+		$option = Option::make('foo')->value(FALSE)->defaults('lorem');
 		$this->assertEquals('lorem', $option->getValue());
 	}
 
@@ -134,10 +134,10 @@ class GetValueTest extends TestCase
 	}
 
 
-	public function testOptionalValueAndValueSetAndDefaultSet()
+	public function testOptionalValueAndValueSetAndDefaultsSet()
 	{
 		$this->setArguments('-f lorem');
-		$option = Option::make('foo')->value(FALSE)->def('ipsum');
+		$option = Option::make('foo')->value(FALSE)->defaults('ipsum');
 		$this->assertEquals('lorem', $option->getValue());
 	}
 

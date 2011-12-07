@@ -79,7 +79,7 @@ class Option
 	 *
 	 * @var string
 	 */
-	private $default = NULL;
+	private $defaults = NULL;
 
 	/**
 	 * Flag of requirements of option
@@ -236,14 +236,14 @@ class Option
 	 * @throws LogicException The default value make sense only for options with optional value.
 	 * @return Option
 	 */
-	public function def($default = NULL)
+	public function defaults($defaults = NULL)
 	{
-		if (!is_null($default) && $this->valueRequired != self::VALUE_OPTIONAL)
+		if (!is_null($defaults) && $this->valueRequired != self::VALUE_OPTIONAL)
 		{
 			throw new LogicException($this->name . ': The default value makes sense only for options with optional value.');
 		}
 
-		$this->default = $default;
+		$this->defaults = $defaults;
 		return $this;
 	}
 
@@ -276,7 +276,7 @@ class Option
 	{
 		$value = ((bool)$value) ? self::VALUE_REQUIRE : self::VALUE_OPTIONAL;
 
-		if (!is_null($this->default) && $value != self::VALUE_OPTIONAL)
+		if (!is_null($this->defaults) && $value != self::VALUE_OPTIONAL)
 		{
 			throw new LogicException($this->name . ': The require/non value makes sense only for option without default value.');
 		}
@@ -355,9 +355,9 @@ class Option
 	 *
 	 * @return mixed
 	 */
-	public function getDef()
+	public function getDefaults()
 	{
-		return $this->default;
+		return $this->defaults;
 	}
 
 
@@ -450,9 +450,9 @@ class Option
 
 
 		// default value
-		if ($this->default)
+		if ($this->defaults)
 		{
-			$help .= "\n\t" . $indent . 'DEFULT="' . $this->default . '"';
+			$help .= "\n\t" . $indent . 'DEFULT="' . $this->defaults . '"';
 		}
 
 		// needed options
@@ -538,9 +538,9 @@ class Option
 
 			case self::VALUE_OPTIONAL:
 				// use default value for not set option or empty set option
-				if (is_bool($value) && !is_null($this->default))
+				if (is_bool($value) && !is_null($this->defaults))
 				{
-					$value = $this->default;
+					$value = $this->defaults;
 				}
 				break;
 

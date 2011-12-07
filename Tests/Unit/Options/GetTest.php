@@ -83,7 +83,7 @@ class GetTest extends TestCase
 	{
 		$this->setArguments('');
 		$options = new Options();
-		$options->add(Option::make('Foo')->value(FALSE)->def('ipsum'));
+		$options->add(Option::make('Foo')->value(FALSE)->defaults('ipsum'));
 		$this->assertEquals('ipsum', $options->get('Foo'));
 	}
 
@@ -92,7 +92,7 @@ class GetTest extends TestCase
 	{
 		$this->setArguments('');
 		$options = new Options();
-		$options->add(Option::make('Foo')->value(FALSE)->def('ipsum'));
+		$options->add(Option::make('Foo')->value(FALSE)->defaults('ipsum'));
 		$this->assertEquals('ipsum', $options->get('-f'));
 	}
 
@@ -101,7 +101,7 @@ class GetTest extends TestCase
 	{
 		$this->setArguments('');
 		$options = new Options();
-		$options->add(Option::make('Foo')->value(FALSE)->def('ipsum'));
+		$options->add(Option::make('Foo')->value(FALSE)->defaults('ipsum'));
 		$this->assertEquals('ipsum', $options->get('--foo'));
 	}
 
@@ -111,7 +111,7 @@ class GetTest extends TestCase
 		$this->setArguments('');
 		$options = new Options();
 		$options->add(Option::make('Foo'));
-		$options->def('Foo');
+		$options->defaults('Foo');
 		$this->assertEquals(TRUE, $options->get('Foo'));
 	}
 

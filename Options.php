@@ -58,7 +58,7 @@ class Options
 	 *
 	 * @var array ('name' => [name of option], 'value' => [value of option])
 	 */
-	private $default = NULL;
+	private $defaults = NULL;
 
 	/**
 	 * Common description show in help
@@ -131,19 +131,19 @@ class Options
 	 * @throws InvalidArgumentException Unknown option.
 	 * @return Options
 	 */
-	public function def($name)
+	public function defaults($name)
 	{
 		if (!isset($this->options[$name]))
 		{
 			throw new InvalidArgumentException($name . ': Unknown option.');
 		}
 
-		$value = $this->options[$name]->getDef();
-		$this->default['name'] = $name;
-		$this->default['value'] = $value;
+		$value = $this->options[$name]->getDefaults();
+		$this->defaults['name'] = $name;
+		$this->defaults['value'] = $value;
 		if (is_null($value))
 		{
-			$this->default['value'] = TRUE;
+			$this->defaults['value'] = TRUE;
 		}
 
 		return $this;
@@ -197,9 +197,9 @@ class Options
 		}
 
 		// default option
-		if (!is_null($this->default) && ($this->default['name'] == $name) && (count(Arguments::options()) == 0))
+		if (!is_null($this->defaults) && ($this->defaults['name'] == $name) && (count(Arguments::options()) == 0))
 		{
-			return $this->default['value'];
+			return $this->defaults['value'];
 		}
 
 		return $this->optionsValues[$name];
@@ -344,7 +344,7 @@ class Options
 		$this->checkConflicts($option);
 		$name = $option->getName();
 		$this->options[$name] = $option;
-		$this->optionsValues[$name] = $option->getValue((bool)($this->default['value']));
+		$this->optionsValues[$name] = $option->getValue((bool)($this->defaults['value']));
 		if ($option->getShort())
 		{
 			$this->optionsShorts[$option->getShort()] = $name;

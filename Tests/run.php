@@ -22,17 +22,23 @@ define('ROOT', __DIR__ . DIRECTORY_SEPARATOR . '..');
 // include my TestCase
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Unit' . DIRECTORY_SEPARATOR . 'TestCase.php';
 
-// simulate command line runnig (set arguments)
-$argv = $_SERVER['argv'];
-$arg[0] = 'boot.php';
-// set strict mode
-$arg[] = '--strict';
-// generate code coverage
+
+$argvInput = $_SERVER['argv'];
+
+// Unit tests
+$argv = $argvInput;
+$argv[0] = 'boot.php';
+$argv[] = '--strict';
 $argv[] = '--coverage-html';
 $argv[] = './Coverage';
-// tests
 $argv[] = '.' . DIRECTORY_SEPARATOR . 'Unit';
 $_SERVER['argv'] = $argv;
+PHPUnit_TextUI_Command::main(FALSE);
 
-// run tests
+// Regression tests
+$argv = $argvInput;
+$argv[0] = 'boot.php';
+$argv[] = '--strict';
+$argv[] = '.' . DIRECTORY_SEPARATOR . 'Regression';
+$_SERVER['argv'] = $argv;
 PHPUnit_TextUI_Command::main();

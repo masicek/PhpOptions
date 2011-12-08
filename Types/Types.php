@@ -112,6 +112,7 @@ class Types
 				$types[$nameOfType]['classPath'] = __DIR__ . DIRECTORY_SEPARATOR . $file;
 			}
 		}
+		unset($types['A']);
 		return $types;
 	}
 

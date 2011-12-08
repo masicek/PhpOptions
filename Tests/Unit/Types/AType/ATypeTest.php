@@ -19,6 +19,7 @@ require_once 'FooType.php';
  * @author Viktor Mašíček <viktor@masicek.net>
  *
  * @covers PhpOptions\AType::__construct
+ * @covers Tests\PhpOptions\AType\FooType::__construct
  */
 class ATypeTest extends TestCase
 {

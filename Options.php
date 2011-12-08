@@ -83,9 +83,9 @@ class Options
 	public function __construct()
 	{
 		if (php_sapi_name() !== 'cli')
-		{
+		{	// @codeCoverageIgnoreStart
 			throw new UserBadCallException('Script have to run from command line.');
-		}
+		}	// @codeCoverageIgnoreEnd
 	}
 
 

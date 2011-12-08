@@ -35,6 +35,9 @@ class GetTypeTest extends TestCase
 	}
 
 
+	/**
+	 * @covers Tests\PhpOptions\Types\FooType
+	 */
 	public function testOwnType()
 	{
 		$types = new Types();
@@ -45,6 +48,9 @@ class GetTypeTest extends TestCase
 	}
 
 
+	/**
+	 * @covers Tests\PhpOptions\Types\BarType
+	 */
 	public function testWrongType()
 	{
 		$types = new Types();

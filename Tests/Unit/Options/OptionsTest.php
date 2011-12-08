@@ -33,13 +33,4 @@ class OptionsTest extends TestCase
 	}
 
 
-	public function testNonConsole()
-	{
-		$this->markTestSkipped('It cannot be simulating of running the csript from another intergace then CLI.');
-
-		$this->setExpectedException('PhpOptions\UserBadCallException');
-		$options = new Options();
-	}
-
-
 }

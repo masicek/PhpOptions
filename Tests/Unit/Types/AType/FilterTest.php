@@ -21,6 +21,7 @@ require_once ROOT .'/Types/StringType.php';
  *
  * @covers PhpOptions\AType::filter
  * @covers PhpOptions\AType::useFilter
+ * @covers Tests\PhpOptions\AType\FooType::useFilter
  */
 class FilterTest extends TestCase
 {

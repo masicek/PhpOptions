@@ -9,7 +9,9 @@
 
 namespace Tests\PhpOptions\Types;
 
+// @codeCoverageIgnoreStart
 require_once ROOT . '/Types/AType.php';
+// @codeCoverageIgnoreEnd
 
 /**
  * Test type for make tests of register new own type
@@ -23,12 +25,6 @@ class FooType extends \PhpOptions\AType
 	public function __construct($settings = array())
 	{
 		parent::__construct($settings);
-	}
-
-
-	protected function useFilter($value)
-	{
-		return 'Test filtered value';
 	}
 
 

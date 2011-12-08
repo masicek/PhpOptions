@@ -47,6 +47,7 @@ class OptionTest extends TestCase
 
 	public function testEmptyNameByType()
 	{
+		$this->setPropertyValue('Option', '\PhpOptions\Option::$types', NULL);
 		$this->setExpectedException('\PhpOptions\InvalidArgumentException');
 		$option = Option::string('');
 	}
@@ -99,7 +100,7 @@ class OptionTest extends TestCase
 
 	public function testUnknownType()
 	{
-		$this->setExpectedException('\PhpOptions\UndefinedMethodException');
+		$this->setExpectedException('\PhpOptions\InvalidArgumentException');
 		$option = Option::unknown('Foo');
 	}
 

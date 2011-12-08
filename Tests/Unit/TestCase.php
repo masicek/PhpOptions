@@ -50,7 +50,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	 * If you want to change the value of private property, which not define the object, but a parent,
 	 * you need to specify the form $property "Class::$propertyName", where Class is class, which the property defined.
 	 *
-	 * Example: změna mapperu u FilesRepository
+	 * Example:
 	 * <pre>
 	 *  $this->setPropertyValue('Arguments', 'PhpOptions\Arguments::$options', NULL);
 	 * </pre>

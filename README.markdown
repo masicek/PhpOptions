@@ -45,3 +45,5 @@ This filtering can be stopped by setting 'notFilter' while option is created.
 * __enum__ - chech if value is one of expected set options
 * __series__ (__array__) - input string is delimited into array
 (for [PHP keywords](http://php.net/manual/en/reserved.keywords.php) cannot be used _array_ as name of type, so _series_ is used)
+
+It is possible register own new types or replace default types.

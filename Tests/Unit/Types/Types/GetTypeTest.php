@@ -26,17 +26,39 @@ class GetTypeTest extends TestCase
 {
 
 
-	public function testKnownType()
+	public function testDefaultType()
 	{
-		$type = Types::getType('string', array());
+		$types = new Types();
+		$type = $types->getType('string', array());
+		$this->assertInstanceOf('\PhpOptions\AType', $type);
 		$this->assertInstanceOf('\PhpOptions\StringType', $type);
+	}
+
+
+	public function testOwnType()
+	{
+		$types = new Types();
+		$types->register('Foo', '\Tests\PhpOptions\Types\FooType', __DIR__ . '/FooType.php');
+		$type = $types->getType('foo', array());
+		$this->assertInstanceOf('\PhpOptions\AType', $type);
+		$this->assertInstanceOf('\Tests\PhpOptions\Types\FooType', $type);
+	}
+
+
+	public function testWrongType()
+	{
+		$types = new Types();
+		$types->register('bar', '\Tests\PhpOptions\Types\BarType', __DIR__ . '/BarType.php');
+		$this->setExpectedException('\PhpOptions\InvalidArgumentException');
+		$type = $types->getType('bar', array());
 	}
 
 
 	public function testUnknownType()
 	{
+		$types = new Types();
 		$this->setExpectedException('\PhpOptions\InvalidArgumentException');
-		Types::getType('unknown', array());
+		$type = $types->getType('unknown', array());
 	}
 
 

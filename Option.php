@@ -37,7 +37,12 @@ class Option
 	const VALUE_OPTIONAL = 'value_optional';
 
 
-
+	/**
+	 * Object for making types objects
+	 *
+	 * @var Types
+	 */
+	private static $types = NULL;
 
 	/**
 	 * Name of option
@@ -165,15 +170,14 @@ class Option
 	 */
 	public static function __callStatic($type, $settings)
 	{
-		if (!in_array($type, Types::possibleTypes()))
+		if (!self::$types)
 		{
-			throw new UndefinedMethodException($type . ': Undefined type of option.');
+			self::$types = new Types();
 		}
 
-		$name = (isset($settings[0])) ? $settings[0] : '';
+		$name = (isset($settings[0])) ? array_shift($settings) : '';
 		$option = self::make($name);
-		array_shift($settings);
-		$option->type = Types::getType($type, $settings);
+		$option->type = self::$types->getType($type, $settings);
 		$option->value();
 		return $option;
 	}

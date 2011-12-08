@@ -17,46 +17,47 @@ namespace PhpOptions;
 class Types
 {
 
-	/**
-	 * Types of options value
-	 */
-	const TYPE_STRING = 'string';
-	const TYPE_CHAR = 'char';
-	const TYPE_INTEGER = 'integer';
-	const TYPE_REAL = 'real';
-	const TYPE_DATE = 'date';
-	const TYPE_TIME = 'time';
-	const TYPE_DATETIME = 'datetime';
-	const TYPE_DIRECTORY = 'directory';
-	const TYPE_FILE = 'file';
-	const TYPE_EMAIL = 'email';
-	const TYPE_ENUM = 'enum';
-	const TYPE_SERIES = 'series';
-	const TYPE_INIFILE = 'inifile';
-
 
 	/**
-	 * List of possible types of options values
+	 * List of registered types
 	 *
-	 * @return array
+	 * @var array [name] => array(
+	 *		'className' => [name of class with namespace]
+	 *		'classPath' => [full path of file contains class of type]
+	 * )
 	 */
-	public static function possibleTypes()
+	private $registeredTypes = array();
+
+
+	/**
+	 * Register default types.
+	 * There are all files with suffix "Type.php" in this directory.
+	 * Name type is prefix: "[name of type]Type.php"
+	 */
+	public function __construct()
 	{
-		return array(
-			self::TYPE_STRING,
-			self::TYPE_CHAR,
-			self::TYPE_INTEGER,
-			self::TYPE_REAL,
-			self::TYPE_DATE,
-			self::TYPE_TIME,
-			self::TYPE_DATETIME,
-			self::TYPE_DIRECTORY,
-			self::TYPE_FILE,
-			self::TYPE_EMAIL,
-			self::TYPE_ENUM,
-			self::TYPE_SERIES,
-			self::TYPE_INIFILE,
-		);
+		foreach ($this->getDefaultTypes() as $name => $class)
+		{
+			$this->register($name, $class['className'], $class['classPath']);
+		}
+	}
+
+
+	/**
+	 * Register new type. It has to by child of abstract class AType.
+	 * It is possible rewrite already registered types (so defaults too).
+	 *
+	 * @param string $name Name of type
+	 * @param string $className Name of class of type with namespace
+	 * @param string $classPath Full path of file contains class of type
+	 *
+	 * @return void
+	 */
+	public function register($name, $className, $classPath)
+	{
+		$name = strtolower($name);
+		$this->registeredTypes[$name]['className'] = $className;
+		$this->registeredTypes[$name]['classPath'] = $classPath;
 	}
 
 
@@ -69,19 +70,49 @@ class Types
 	 * @throws InvalidArgumentException Undefined type of option.
 	 * @return IType
 	 */
-	public static function getType($type, $settings)
+	public function getType($type, $settings)
 	{
-		if (in_array($type, self::possibleTypes()))
-		{
-			$class = ucfirst($type) . 'Type';
-			require_once __DIR__ . DIRECTORY_SEPARATOR . $class . '.php';
-			$class = 'PhpOptions\\' . $class;
-			return new $class($settings);
-		}
-		else
+		if (!isset($this->registeredTypes[$type]))
 		{
 			throw new InvalidArgumentException($type . ': Undefined type of option.');
 		}
+
+		require_once $this->registeredTypes[$type]['classPath'];
+		$className = $this->registeredTypes[$type]['className'];
+		$typeClass = new $className($settings);
+
+		if (!($typeClass instanceof \PhpOptions\AType))
+		{
+			throw new InvalidArgumentException($type . ': Type have to be instance of \PhpOptions\AType.');
+		}
+
+		return $typeClass;
+	}
+
+
+	/**
+	 * Return list of all defaults types with their class name and files for including.
+	 *
+	 * @return array
+	 */
+	private function getDefaultTypes()
+	{
+		$types = array();
+		$files = scandir(__DIR__);
+		foreach ($files as $file)
+		{
+			if (substr($file, -8) == 'Type.php')
+			{
+				// remove Type.php at the end
+				$nameOfType = substr($file, 0, -8);
+
+				// remove .php at the end
+				$className = '\\PhpOptions\\' . substr($file, 0, -4);
+				$types[$nameOfType]['className'] = $className;
+				$types[$nameOfType]['classPath'] = __DIR__ . DIRECTORY_SEPARATOR . $file;
+			}
+		}
+		return $types;
 	}
 
 

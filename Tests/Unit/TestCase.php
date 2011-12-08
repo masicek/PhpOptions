@@ -36,10 +36,43 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 */
-	protected function setArguments($arguments, $delimiter = ' ')
+	protected function setArguments($arguments)
 	{
-		$arguments = str_replace('"', '', $arguments);
-		$argv = explode($delimiter, trim('my_script.php' . $delimiter . $arguments));
+		$arguments = preg_replace('/(' . "\n|\t" . ')+/', ' ', $arguments);
+		$arguments = trim($arguments);
+		$argumentsNew = '';
+		$inQuation = FALSE;
+		for ($i = 0; $i < strlen($arguments); $i++)
+		{
+			$char  = $arguments[$i];
+			if ($char == '"' && !$inQuation)
+			{
+				$inQuation = TRUE;
+			}
+			elseif ($char == '"' && $inQuation)
+			{
+				$inQuation = FALSE;
+			}
+
+			if ($char == ' ' && $inQuation)
+			{
+				$argumentsNew .= '###SPACE###';
+			}
+			elseif ($char != '"')
+			{
+				$argumentsNew .= $char;
+			}
+		}
+		$arguments = $argumentsNew;
+		$arguments = preg_replace('/ +/', ' ', $arguments);
+
+		$argv = explode(' ', trim('my_script.php ' . $arguments));
+
+		for ($i = 0; $i < count($argv); $i++)
+		{
+			$argv[$i] = str_replace('###SPACE###', ' ', $argv[$i]);
+		}
+
 		$_SERVER['argv'] = $argv;
 	}
 

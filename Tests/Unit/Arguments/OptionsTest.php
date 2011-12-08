@@ -29,13 +29,13 @@ class OptionsTest extends TestCase
 	/**
 	 * @dataProvider provider
 	 */
-	public function test($arguments, $expectedOptions, $delimiter = ' ')
+	public function test($arguments, $expectedOptions)
 	{
 		// clean cached arguments
 		$this->setPropertyValue('Arguments', 'PhpOptions\Arguments::$options', NULL);
 
-		$this->setArguments($arguments, $delimiter);
-		$this->assertEquals($expectedOptions, Arguments::options(), $delimiter);
+		$this->setArguments($arguments);
+		$this->assertEquals($expectedOptions, Arguments::options());
 	}
 
 

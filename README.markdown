@@ -40,6 +40,7 @@ This filtering can be stopped by setting 'notFilter' while option is created.
 * __datetime__ - format: <code>YEAR(-|.)MONTH(-|.)DAY[ HOURS[(-|:)MINUTES[(-|:)SECONDS]][ HOURS_FORMAT]]</code>
 * __directory__ - expect path of exist directory
 * __file__ - expect path of exist file
+* __inifile__ - expect path of exist INI file and return content in array
 * __email__ - check corect format of email
 * __enum__ - chech if value is one of expected set options
 * __series__ (__array__) - input string is delimited into array

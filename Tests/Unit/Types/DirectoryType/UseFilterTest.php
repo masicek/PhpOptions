@@ -82,10 +82,4 @@ class UseFilterTest extends TestCase
 	}
 
 
-	private function setDirSep($path)
-	{
-		return str_replace('/', DIRECTORY_SEPARATOR, $path);
-	}
-
-
 }

@@ -148,16 +148,16 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	}
 
 
-}
+	/**
+	 * Set directory separator based on OS
+	 *
+	 * @param string $path
+	 *
+	 * @return string
+	 */
+	public function setDirSep($path)
+	{
+		return str_replace('/', DIRECTORY_SEPARATOR, $path);
+	}
 
-
-/**
- * DebugDump
- * Helpful function for debug printing of variable
- *
- * @param mix $var Variable
- */
-function dd($var)
-{
-	var_dump($var);
 }

@@ -456,7 +456,7 @@ class Option
 		// default value
 		if ($this->defaults)
 		{
-			$help .= "\n\t" . $indent . 'DEFULT="' . $this->defaults . '"';
+			$help .= "\n\t" . $indent . 'DEFAULT="' . $this->defaults . '"';
 		}
 
 		// needed options

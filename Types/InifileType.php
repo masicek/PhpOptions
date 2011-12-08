@@ -91,13 +91,16 @@ class InifileType extends FileType
 		$contentTmp = array();
 		foreach ($content as $section => $values)
 		{
-			if (preg_match('/^([^ <]+)[ ]+[<][ ]+([^ <]+)$/', $section, $matches))
+			$position = strpos($section, '<');
+			if ($position !== FALSE)
 			{
-				$section = $matches[1];
-				$parrent = $matches[2];
-				if (isset($contentTmp[$parrent]))
+				$child = trim(substr($section, 0, $position - 1));
+				$parent = trim(substr($section, $position + 1));
+
+				if ($child && $parent && isset($contentTmp[$parent]))
 				{
-					$values = array_merge($contentTmp[$parrent], $values);
+					$section = $child;
+					$values = array_merge($contentTmp[$parent], $values);
 				}
 			}
 			$contentTmp[$section] = $values;

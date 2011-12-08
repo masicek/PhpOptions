@@ -63,8 +63,9 @@ abstract class AType
 	 */
 	public function getName()
 	{
-		preg_match('/^(.*\\\)?([^\\\]+)Type$/', get_class($this), $matches);
-		$name = $matches[2];
+		$className = get_class($this);
+		$start = strrpos($className, '\\') + 1;
+		$name = substr($className, $start, -4);
 		return strtoupper($name);
 	}
 

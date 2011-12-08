@@ -12,6 +12,7 @@ namespace Tests\PhpOptions\AType;
 use \Tests\PhpOptions\TestCase;
 
 require_once 'FooType.php';
+require_once ROOT .'/Types/StringType.php';
 
 /**
  * FilterTest

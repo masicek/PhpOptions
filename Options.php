@@ -315,7 +315,11 @@ class Options
 					unset($options[$optionName]);
 				}
 			}
-			$help .= "\nNON GROUP OPTIONS:\n";
+
+			if (count($options) > 0)
+			{
+				$help .= "\nNON GROUP OPTIONS:\n";
+			}
 			$indent = 1;
 		}
 

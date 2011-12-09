@@ -1,7 +1,7 @@
 <?php
 
 /*
- * PhpOption
+ * PhpOptions
  *
  * Run all PHPUnit tests
  *

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PhpOption
+ * PhpOptions
  * @link git@github.com:masicek/PhpOptions.git
  * @author Viktor Mašíček <viktor@masicek.net>
  * @license "New" BSD License

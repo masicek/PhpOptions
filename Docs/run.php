@@ -1,7 +1,7 @@
 <?php
 
 /*
- * PhpOption
+ * PhpOptions
  *
  * Generate API documentation
  *

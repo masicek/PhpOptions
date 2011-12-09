@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\EnumType;
+namespace Tests\PhpOptions\Types\EnumType;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\EnumType;
+use \PhpOptions\Types\EnumType;
 
 require_once ROOT . '/Types/EnumType.php';
 
@@ -19,7 +19,7 @@ require_once ROOT . '/Types/EnumType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\EnumType::check
+ * @covers PhpOptions\Types\EnumType::check
  */
 class CheckTest extends TestCase
 {

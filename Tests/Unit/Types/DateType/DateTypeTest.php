@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\DateType;
+namespace Tests\PhpOptions\Types\DateType;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\DateType;
+use \PhpOptions\Types\DateType;
 
 require_once ROOT . '/Types/DateType.php';
 
@@ -19,7 +19,7 @@ require_once ROOT . '/Types/DateType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\DateType::__construct
+ * @covers PhpOptions\Types\DateType::__construct
  */
 class DateTypeTest extends TestCase
 {

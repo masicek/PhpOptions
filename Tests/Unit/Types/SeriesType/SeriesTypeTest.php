@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\SeriesType;
+namespace Tests\PhpOptions\Types\SeriesType;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\SeriesType;
+use \PhpOptions\Types\SeriesType;
 
 require_once ROOT . '/Types/SeriesType.php';
 
@@ -19,7 +19,7 @@ require_once ROOT . '/Types/SeriesType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\SeriesType::__construct
+ * @covers PhpOptions\Types\SeriesType::__construct
  */
 class SeriesTypeTest extends TestCase
 {

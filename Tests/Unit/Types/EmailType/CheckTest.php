@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\EmailType;
+namespace Tests\PhpOptions\Types\EmailType;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\EmailType;
+use \PhpOptions\Types\EmailType;
 
 require_once ROOT . '/Types/EmailType.php';
 
@@ -19,7 +19,7 @@ require_once ROOT . '/Types/EmailType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\EmailType::check
+ * @covers PhpOptions\Types\EmailType::check
  */
 class CheckTest extends TestCase
 {

@@ -15,7 +15,7 @@ define('ROOT', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Php
 
 // get default types
 require_once ROOT . '/Types/Types.php';
-$types = new \PhpOptions\Types();
+$types = new \PhpOptions\Types\Types();
 $defaultTypes = $types->getDefaultTypes();
 
 

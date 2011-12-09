@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\Types;
+namespace Tests\PhpOptions\Types\Types;
 
 // @codeCoverageIgnoreStart
 require_once ROOT . '/Types/AType.php';
@@ -18,7 +18,7 @@ require_once ROOT . '/Types/AType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class FooType extends \PhpOptions\AType
+class FooType extends \PhpOptions\Types\AType
 {
 
 

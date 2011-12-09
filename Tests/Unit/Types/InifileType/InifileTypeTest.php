@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\InifileType;
+namespace Tests\PhpOptions\Types\InifileType;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\InifileType;
+use \PhpOptions\Types\InifileType;
 
 require_once ROOT . '/Types/InifileType.php';
 
@@ -19,7 +19,7 @@ require_once ROOT . '/Types/InifileType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\InifileType::__construct
+ * @covers PhpOptions\Types\InifileType::__construct
  */
 class InifileTypeTest extends TestCase
 {

@@ -82,7 +82,7 @@ class OptionTest extends TestCase
 		$this->assertEquals('f', $option->getShort());
 		$this->assertEquals('foo-bar-option', $option->getLong());
 		$type = $this->getPropertyValue($option, 'type');
-		$this->assertInstanceOf('\PhpOptions\StringType', $type);
+		$this->assertInstanceOf('\PhpOptions\Types\StringType', $type);
 	}
 
 
@@ -93,7 +93,7 @@ class OptionTest extends TestCase
 		$this->assertEquals('f', $option->getShort());
 		$this->assertEquals('foo-bar-option', $option->getLong());
 		$type = $this->getPropertyValue($option, 'type');
-		$this->assertInstanceOf('\PhpOptions\StringType', $type);
+		$this->assertInstanceOf('\PhpOptions\Types\StringType', $type);
 		$this->assertFalse($this->getPropertyValue($type, 'useFilter'));
 	}
 

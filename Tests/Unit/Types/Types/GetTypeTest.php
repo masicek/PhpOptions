@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\Types;
+namespace Tests\PhpOptions\Types\Types;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\Types;
+use \PhpOptions\Types\Types;
 
 require_once ROOT . '/Types/Types.php';
 require_once ROOT . '/Exceptions.php';
@@ -20,7 +20,7 @@ require_once ROOT . '/Exceptions.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\Types::getType
+ * @covers PhpOptions\Types\Types::getType
  */
 class GetTypeTest extends TestCase
 {
@@ -30,31 +30,31 @@ class GetTypeTest extends TestCase
 	{
 		$types = new Types();
 		$type = $types->getType('string', array());
-		$this->assertInstanceOf('\PhpOptions\AType', $type);
-		$this->assertInstanceOf('\PhpOptions\StringType', $type);
+		$this->assertInstanceOf('\PhpOptions\Types\AType', $type);
+		$this->assertInstanceOf('\PhpOptions\Types\StringType', $type);
 	}
 
 
 	/**
-	 * @covers Tests\PhpOptions\Types\FooType
+	 * @covers Tests\PhpOptions\Types\Types\FooType
 	 */
 	public function testOwnType()
 	{
 		$types = new Types();
-		$types->register('Foo', '\Tests\PhpOptions\Types\FooType', __DIR__ . '/FooType.php');
+		$types->register('Foo', '\Tests\PhpOptions\Types\Types\FooType', __DIR__ . '/FooType.php');
 		$type = $types->getType('foo', array());
-		$this->assertInstanceOf('\PhpOptions\AType', $type);
-		$this->assertInstanceOf('\Tests\PhpOptions\Types\FooType', $type);
+		$this->assertInstanceOf('\PhpOptions\Types\AType', $type);
+		$this->assertInstanceOf('\Tests\PhpOptions\Types\Types\FooType', $type);
 	}
 
 
 	/**
-	 * @covers Tests\PhpOptions\Types\BarType
+	 * @covers Tests\PhpOptions\Types\Types\BarType
 	 */
 	public function testWrongType()
 	{
 		$types = new Types();
-		$types->register('bar', '\Tests\PhpOptions\Types\BarType', __DIR__ . '/BarType.php');
+		$types->register('bar', '\Tests\PhpOptions\Types\Types\BarType', __DIR__ . '/BarType.php');
 		$this->setExpectedException('\PhpOptions\InvalidArgumentException');
 		$type = $types->getType('bar', array());
 	}

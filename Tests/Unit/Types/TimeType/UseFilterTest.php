@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\TimeType;
+namespace Tests\PhpOptions\Types\TimeType;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\TimeType;
+use \PhpOptions\Types\TimeType;
 
 require_once ROOT . '/Types/TimeType.php';
 
@@ -19,7 +19,7 @@ require_once ROOT . '/Types/TimeType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\TimeType::useFilter
+ * @covers PhpOptions\Types\TimeType::useFilter
  */
 class UseFilterTest extends TestCase
 {

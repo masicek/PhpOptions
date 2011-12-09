@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\FileType;
+namespace Tests\PhpOptions\Types\FileType;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\FileType;
+use \PhpOptions\Types\FileType;
 
 require_once ROOT . '/Types/FileType.php';
 
@@ -19,8 +19,8 @@ require_once ROOT . '/Types/FileType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\FileType::useFilter
- * @covers PhpOptions\FileType::make
+ * @covers PhpOptions\Types\FileType::useFilter
+ * @covers PhpOptions\Types\FileType::make
  */
 class UseFilterTest extends TestCase
 {

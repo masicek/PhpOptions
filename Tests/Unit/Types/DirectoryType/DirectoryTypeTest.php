@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\DirectoryType;
+namespace Tests\PhpOptions\Types\DirectoryType;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\DirectoryType;
+use \PhpOptions\Types\DirectoryType;
 
 require_once ROOT . '/Types/DirectoryType.php';
 
@@ -19,7 +19,7 @@ require_once ROOT . '/Types/DirectoryType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\DirectoryType::__construct
+ * @covers PhpOptions\Types\DirectoryType::__construct
  */
 class DirectoryTypeTest extends TestCase
 {

@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\InifileType;
+namespace Tests\PhpOptions\Types\InifileType;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\InifileType;
+use \PhpOptions\Types\InifileType;
 
 require_once ROOT . '/Types/InifileType.php';
 
@@ -19,9 +19,9 @@ require_once ROOT . '/Types/InifileType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\InifileType::useFilter
- * @covers PhpOptions\InifileType::mergeParent
- * @covers PhpOptions\InifileType::makeSubArray
+ * @covers PhpOptions\Types\InifileType::useFilter
+ * @covers PhpOptions\Types\InifileType::mergeParent
+ * @covers PhpOptions\Types\InifileType::makeSubArray
  */
 class UseFilterTest extends TestCase
 {

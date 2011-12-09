@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace PhpOptions;
+namespace PhpOptions\Types;
 
 require_once __DIR__ . '/AType.php';
 

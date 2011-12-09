@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\AType;
+namespace Tests\PhpOptions\Types\AType;
 
 use \Tests\PhpOptions\TestCase;
 
@@ -18,8 +18,8 @@ require_once 'FooType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\AType::__construct
- * @covers Tests\PhpOptions\AType\FooType::__construct
+ * @covers PhpOptions\Types\AType::__construct
+ * @covers Tests\PhpOptions\Types\AType\FooType::__construct
  */
 class ATypeTest extends TestCase
 {

@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\TimeType;
+namespace Tests\PhpOptions\Types\TimeType;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\TimeType;
+use \PhpOptions\Types\TimeType;
 
 require_once ROOT . '/Types/TimeType.php';
 
@@ -19,9 +19,9 @@ require_once ROOT . '/Types/TimeType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\TimeType::check
- * @covers PhpOptions\TimeType::getTimeString
- * @covers PhpOptions\TimeType::complete
+ * @covers PhpOptions\Types\TimeType::check
+ * @covers PhpOptions\Types\TimeType::getTimeString
+ * @covers PhpOptions\Types\TimeType::complete
  */
 class CheckTest extends TestCase
 {

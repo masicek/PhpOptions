@@ -172,7 +172,7 @@ class Option
 	{
 		if (!self::$types)
 		{
-			self::$types = new Types();
+			self::$types = new Types\Types();
 		}
 
 		$name = (isset($settings[0])) ? array_shift($settings) : '';

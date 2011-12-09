@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace PhpOptions;
+namespace PhpOptions\Types;
 
 /**
  * Class for better work with defined types extends ITypes
@@ -75,23 +75,23 @@ class Types
 	 * @param string $type Type of option value
 	 * @param array $settings List of setting specific for selected type
 	 *
-	 * @throws InvalidArgumentException Undefined type of option.
-	 * @return IType
+	 * @throws \PhpOptions\InvalidArgumentException Undefined type of option.
+	 * @return AType
 	 */
 	public function getType($type, $settings)
 	{
 		if (!isset($this->registeredTypes[$type]))
 		{
-			throw new InvalidArgumentException($type . ': Undefined type of option.');
+			throw new \PhpOptions\InvalidArgumentException($type . ': Undefined type of option.');
 		}
 
 		require_once $this->registeredTypes[$type]['classPath'];
 		$className = $this->registeredTypes[$type]['className'];
 		$typeClass = new $className($settings);
 
-		if (!($typeClass instanceof \PhpOptions\AType))
+		if (!($typeClass instanceof \PhpOptions\Types\AType))
 		{
-			throw new InvalidArgumentException($type . ': Type have to be instance of \PhpOptions\AType.');
+			throw new \PhpOptions\InvalidArgumentException($type . ': Type have to be instance of \PhpOptions\Types\AType.');
 		}
 
 		return $typeClass;
@@ -121,7 +121,7 @@ class Types
 				$nameOfType = substr($file, 0, -8);
 
 				// remove .php at the end
-				$className = '\\PhpOptions\\' . substr($file, 0, -4);
+				$className = '\\PhpOptions\\Types\\' . substr($file, 0, -4);
 				$types[$nameOfType]['className'] = $className;
 				$types[$nameOfType]['classPath'] = __DIR__ . DIRECTORY_SEPARATOR . $file;
 			}

@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\Types;
+namespace Tests\PhpOptions\Types\Types;
 
 /**
  * Test wrong type

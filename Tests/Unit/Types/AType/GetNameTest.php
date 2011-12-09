@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\AType;
+namespace Tests\PhpOptions\Types\AType;
 
 use \Tests\PhpOptions\TestCase;
 
@@ -18,7 +18,7 @@ require_once 'FooType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\AType::getName
+ * @covers PhpOptions\Types\AType::getName
  */
 class GetNameTest extends TestCase
 {

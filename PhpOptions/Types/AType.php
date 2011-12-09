@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace PhpOptions;
+namespace PhpOptions\Types;
 
 /**
  * Abstract type with default functions

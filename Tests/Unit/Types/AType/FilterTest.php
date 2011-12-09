@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\AType;
+namespace Tests\PhpOptions\Types\AType;
 
 use \Tests\PhpOptions\TestCase;
 
@@ -19,9 +19,9 @@ require_once ROOT .'/Types/StringType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\AType::filter
- * @covers PhpOptions\AType::useFilter
- * @covers Tests\PhpOptions\AType\FooType::useFilter
+ * @covers PhpOptions\Types\AType::filter
+ * @covers PhpOptions\Types\AType::useFilter
+ * @covers Tests\PhpOptions\Types\AType\FooType::useFilter
  */
 class FilterTest extends TestCase
 {
@@ -36,7 +36,7 @@ class FilterTest extends TestCase
 
 	public function testUseFilterParent()
 	{
-		$type = new \PhpOptions\StringType();
+		$type = new \PhpOptions\Types\StringType();
 		$this->assertEquals('Lorem ipsum', $type->filter('Lorem ipsum'));
 	}
 

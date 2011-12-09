@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\IntegerType;
+namespace Tests\PhpOptions\Types\IntegerType;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\IntegerType;
+use \PhpOptions\Types\IntegerType;
 
 require_once ROOT . '/Types/IntegerType.php';
 
@@ -19,7 +19,7 @@ require_once ROOT . '/Types/IntegerType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\IntegerType::getName
+ * @covers PhpOptions\Types\IntegerType::getName
  */
 class GetNameTest extends TestCase
 {

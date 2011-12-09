@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\RealType;
+namespace Tests\PhpOptions\Types\RealType;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\RealType;
+use \PhpOptions\Types\RealType;
 
 require_once ROOT . '/Types/RealType.php';
 
@@ -19,7 +19,7 @@ require_once ROOT . '/Types/RealType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\RealType::check
+ * @covers PhpOptions\Types\RealType::check
  */
 class CheckTest extends TestCase
 {

@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\CharType;
+namespace Tests\PhpOptions\Types\CharType;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\CharType;
+use \PhpOptions\Types\CharType;
 
 require_once ROOT . '/Types/CharType.php';
 
@@ -19,7 +19,7 @@ require_once ROOT . '/Types/CharType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\CharType::check
+ * @covers PhpOptions\Types\CharType::check
  */
 class CheckTest extends TestCase
 {

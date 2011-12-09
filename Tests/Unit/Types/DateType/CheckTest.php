@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\DateType;
+namespace Tests\PhpOptions\Types\DateType;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\DateType;
+use \PhpOptions\Types\DateType;
 
 require_once ROOT . '/Types/DateType.php';
 
@@ -19,9 +19,9 @@ require_once ROOT . '/Types/DateType.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\DateType::check
- * @covers PhpOptions\DateType::getDatetimeString
- * @covers PhpOptions\DateType::complete
+ * @covers PhpOptions\Types\DateType::check
+ * @covers PhpOptions\Types\DateType::getDatetimeString
+ * @covers PhpOptions\Types\DateType::complete
  */
 class CheckTest extends TestCase
 {

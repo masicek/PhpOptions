@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\PhpOptions\Types;
+namespace Tests\PhpOptions\Types\Types;
 
 use \Tests\PhpOptions\TestCase;
-use \PhpOptions\Types;
+use \PhpOptions\Types\Types;
 
 require_once ROOT . '/Types/Types.php';
 
@@ -19,8 +19,8 @@ require_once ROOT . '/Types/Types.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\Types::__construct
- * @covers PhpOptions\Types::getDefaultTypes
+ * @covers PhpOptions\Types\Types::__construct
+ * @covers PhpOptions\Types\Types::getDefaultTypes
  */
 class TypesTest extends TestCase
 {
@@ -45,7 +45,7 @@ class TypesTest extends TestCase
 		$typesTmp = new Types();
 		$registeredTypesTmp = $this->getPropertyValue($typesTmp, 'registeredTypes');
 
-		$this->setPropertyValue('Types', '\PhpOptions\Types::$serializedDeafultTypes', serialize($registeredTypesTmp));
+		$this->setPropertyValue('Types', '\PhpOptions\Types\Types::$serializedDeafultTypes', serialize($registeredTypesTmp));
 		$types = new Types();
 		$registeredTypes = $this->getPropertyValue($types, 'registeredTypes');
 

@@ -14,7 +14,7 @@
 // set libs as include path
 $libs = __DIR__ . DIRECTORY_SEPARATOR . 'Libs' . DIRECTORY_SEPARATOR . 'PHPUnit';
 set_include_path(get_include_path() . PATH_SEPARATOR . $libs);
-require_once 'PHPUnit/Autoload.php';
+require_once 'PHPUnit' . DIRECTORY_SEPARATOR . 'Autoload.php';
 
 // path to tested classes
 define('ROOT', __DIR__ . DIRECTORY_SEPARATOR . '..');
@@ -28,6 +28,6 @@ $argvInput = $_SERVER['argv'];
 $argv = $argvInput;
 $argv[0] = 'boot.php';
 $argv[] = '--strict';
-$argv[] = '.' . DIRECTORY_SEPARATOR . 'Minifing';
+$argv[] = __DIR__ . DIRECTORY_SEPARATOR . 'Minifing';
 $_SERVER['argv'] = $argv;
 PHPUnit_TextUI_Command::main();

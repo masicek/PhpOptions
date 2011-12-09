@@ -10,8 +10,5 @@
  * @license "New" BSD License
  */
 
-// path to documented classes
-define('ROOT', __DIR__ . DIRECTORY_SEPARATOR . '..');
-
 // generate documentation
-exec('php '. ROOT . '/Docs/Apigen/apigen.php --title PhpOptions --source ' . ROOT . '/Types --source ' . ROOT . '/Arguments.php --source ' . ROOT . '/Option.php --source ' . ROOT . '/Options.php --source ' . ROOT . '/Exceptions.php --todo yes --destination ' . ROOT . '/Docs/Data');
+exec('php '. __DIR__ . '/Apigen/apigen.php --title PhpOptions --source ' . __DIR__ . '/../Types --source ' . __DIR__ . '/../Arguments.php --source ' . __DIR__ . '/../Option.php --source ' . __DIR__ . '/../Options.php --source ' . __DIR__ . '/../Exceptions.php --todo yes --destination ' . __DIR__ . '/Data');

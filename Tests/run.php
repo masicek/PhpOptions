@@ -42,7 +42,7 @@ if (!$runUnit && !$runRegression && !$runMinifing)
 // set libs as include path
 $libs = __DIR__ . DIRECTORY_SEPARATOR . 'Libs' . DIRECTORY_SEPARATOR . 'PHPUnit';
 set_include_path(get_include_path() . PATH_SEPARATOR . $libs);
-require_once 'PHPUnit/Autoload.php';
+require_once 'PHPUnit' . DIRECTORY_SEPARATOR . 'Autoload.php';
 
 // path to tested classes
 define('ROOT', __DIR__ . DIRECTORY_SEPARATOR . '..');
@@ -61,8 +61,8 @@ if ($runUnit)
 	$argv[0] = 'boot.php';
 	$argv[] = '--strict';
 	$argv[] = '--coverage-html';
-	$argv[] = './Coverage';
-	$argv[] = '.' . DIRECTORY_SEPARATOR . 'Unit';
+	$argv[] = __DIR__ . DIRECTORY_SEPARATOR . 'Coverage';
+	$argv[] = __DIR__ . DIRECTORY_SEPARATOR . 'Unit';
 	$_SERVER['argv'] = $argv;
 	PHPUnit_TextUI_Command::main(FALSE);
 	fwrite(STDOUT, "\n");
@@ -75,7 +75,7 @@ if ($runRegression)
 	$argv = $argvInput;
 	$argv[0] = 'boot.php';
 	$argv[] = '--strict';
-	$argv[] = '.' . DIRECTORY_SEPARATOR . 'Regression';
+	$argv[] = __DIR__ . DIRECTORY_SEPARATOR . 'Regression';
 	$_SERVER['argv'] = $argv;
 	PHPUnit_TextUI_Command::main(FALSE);
 	fwrite(STDOUT, "\n");
@@ -86,6 +86,6 @@ if ($runMinifing)
 {
 	fwrite(STDOUT, "Minifing tests:\n---------------\n");
 	$runMinOutput = array();
-	exec('php ' . __DIR__ . '/runMin.php', $runMinOutput);
+	exec('php ' . __DIR__ . DIRECTORY_SEPARATOR . 'runMin.php', $runMinOutput);
 	fwrite(STDOUT, implode("\n", $runMinOutput));
 }

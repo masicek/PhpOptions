@@ -62,7 +62,7 @@ fwrite(STDOUT, "Comment added\n");
 
 // save into file
 $content = '<?php ' . $comment . ' ' . $content;
-$fileMini = fopen('./PhpOptions.min.php', 'w');
+$fileMini = fopen(__DIR__ . '/PhpOptions.min.php', 'w');
 fwrite($fileMini, $content);
 
 fwrite(STDOUT, 'Minified file was generated');

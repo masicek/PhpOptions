@@ -14,4 +14,4 @@
 define('ROOT', __DIR__ . DIRECTORY_SEPARATOR . '..');
 
 // generate documentation
-exec('php '. ROOT . '/Docs/Apigen/apigen.php --source ' . ROOT . '/Types --source ' . ROOT . '/Arguments.php --source ' . ROOT . '/Option.php --source ' . ROOT . '/Options.php --source ' . ROOT . '/Exceptions.php --todo yes --destination ' . ROOT . '/Docs/Data');
+exec('php '. ROOT . '/Docs/Apigen/apigen.php --title PhpOptions --source ' . ROOT . '/Types --source ' . ROOT . '/Arguments.php --source ' . ROOT . '/Option.php --source ' . ROOT . '/Options.php --source ' . ROOT . '/Exceptions.php --todo yes --destination ' . ROOT . '/Docs/Data');

@@ -26,11 +26,30 @@ class TypesTest extends TestCase
 {
 
 
-	public function test()
+	public function testStandart()
 	{
 		$types = new Types();
 		$registeredTypes = $this->getPropertyValue($types, 'registeredTypes');
 
+		foreach ($registeredTypes as $name => $type)
+		{
+			$this->assertNotEmpty($name);
+			$this->assertNotEmpty($type['classPath']);
+			$this->assertNotEmpty($type['className']);
+		}
+	}
+
+
+	public function testMifiedVersion()
+	{
+		$typesTmp = new Types();
+		$registeredTypesTmp = $this->getPropertyValue($typesTmp, 'registeredTypes');
+
+		$this->setPropertyValue('Types', '\PhpOptions\Types::$serializedDeafultTypes', serialize($registeredTypesTmp));
+		$types = new Types();
+		$registeredTypes = $this->getPropertyValue($types, 'registeredTypes');
+
+		$this->assertEquals($registeredTypesTmp, $registeredTypes);
 		foreach ($registeredTypes as $name => $type)
 		{
 			$this->assertNotEmpty($name);

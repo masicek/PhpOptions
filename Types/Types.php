@@ -28,6 +28,14 @@ class Types
 	 */
 	private $registeredTypes = array();
 
+	/**
+	 * Serialized list of default types.
+	 * This value is used in minified version.
+	 *
+	 * @var string
+	 */
+	private static $serializedDeafultTypes = '';
+
 
 	/**
 	 * Register default types.
@@ -95,8 +103,14 @@ class Types
 	 *
 	 * @return array
 	 */
-	private function getDefaultTypes()
+	public function getDefaultTypes()
 	{
+		// minified version
+		if (self::$serializedDeafultTypes)
+		{
+			return unserialize(self::$serializedDeafultTypes);
+		}
+
 		$types = array();
 		$files = scandir(__DIR__);
 		foreach ($files as $file)

@@ -10,6 +10,34 @@
  * @license "New" BSD License
  */
 
+// detect which trsts run
+$runUnit = FALSE;
+$runRegression = FALSE;
+$runMinifing = FALSE;
+
+$opts = getopt('urm');
+if (isset($opts['u']))
+{
+	$runUnit = TRUE;
+	unset($_SERVER['argv'][array_search('-u', $_SERVER['argv'])]);
+}
+if (isset($opts['r']))
+{
+	$runRegression = TRUE;
+	unset($_SERVER['argv'][array_search('-r', $_SERVER['argv'])]);
+}
+if (isset($opts['m']))
+{
+	$runMinifing = TRUE;
+	unset($_SERVER['argv'][array_search('-m', $_SERVER['argv'])]);
+}
+if (!$runUnit && !$runRegression && !$runMinifing)
+{
+	$runUnit = TRUE;
+	$runRegression = TRUE;
+	$runMinifing = TRUE;
+}
+
 
 // set libs as include path
 $libs = __DIR__ . DIRECTORY_SEPARATOR . 'Libs' . DIRECTORY_SEPARATOR . 'PHPUnit';
@@ -26,19 +54,38 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Unit' . DIRECTORY_SEPARATOR . 'Tes
 $argvInput = $_SERVER['argv'];
 
 // Unit tests
-$argv = $argvInput;
-$argv[0] = 'boot.php';
-$argv[] = '--strict';
-$argv[] = '--coverage-html';
-$argv[] = './Coverage';
-$argv[] = '.' . DIRECTORY_SEPARATOR . 'Unit';
-$_SERVER['argv'] = $argv;
-PHPUnit_TextUI_Command::main(FALSE);
+if ($runUnit)
+{
+	fwrite(STDOUT, "Unit tests:\n-----------\n");
+	$argv = $argvInput;
+	$argv[0] = 'boot.php';
+	$argv[] = '--strict';
+	$argv[] = '--coverage-html';
+	$argv[] = './Coverage';
+	$argv[] = '.' . DIRECTORY_SEPARATOR . 'Unit';
+	$_SERVER['argv'] = $argv;
+	PHPUnit_TextUI_Command::main(FALSE);
+	fwrite(STDOUT, "\n");
+}
 
 // Regression tests
-$argv = $argvInput;
-$argv[0] = 'boot.php';
-$argv[] = '--strict';
-$argv[] = '.' . DIRECTORY_SEPARATOR . 'Regression';
-$_SERVER['argv'] = $argv;
-PHPUnit_TextUI_Command::main();
+if ($runRegression)
+{
+	fwrite(STDOUT, "Regression tests:\n-----------------\n");
+	$argv = $argvInput;
+	$argv[0] = 'boot.php';
+	$argv[] = '--strict';
+	$argv[] = '.' . DIRECTORY_SEPARATOR . 'Regression';
+	$_SERVER['argv'] = $argv;
+	PHPUnit_TextUI_Command::main(FALSE);
+	fwrite(STDOUT, "\n");
+}
+
+// Minifing tests
+if ($runMinifing)
+{
+	fwrite(STDOUT, "Minifing tests:\n---------------\n");
+	$runMinOutput = array();
+	exec('php ' . __DIR__ . '/runMin.php', $runMinOutput);
+	fwrite(STDOUT, implode("\n", $runMinOutput));
+}

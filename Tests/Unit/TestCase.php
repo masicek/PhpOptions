@@ -9,7 +9,10 @@
 
 namespace Tests\PhpOptions;
 
-require_once ROOT . '/Arguments.php';
+if (defined('IS_MINI'))
+{
+	require_once ROOT . '/Arguments.php';
+}
 
 /**
  * Extends of PHPUnit TestCase class.

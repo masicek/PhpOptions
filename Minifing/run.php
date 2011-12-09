@@ -11,7 +11,7 @@
  */
 
 // path to minified classes
-define('ROOT', __DIR__ . DIRECTORY_SEPARATOR . '..');
+define('ROOT', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'PhpOptions');
 
 // get default types
 require_once ROOT . '/Types/Types.php';

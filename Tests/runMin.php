@@ -17,7 +17,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . $libs);
 require_once 'PHPUnit' . DIRECTORY_SEPARATOR . 'Autoload.php';
 
 // path to tested classes
-define('ROOT', __DIR__ . DIRECTORY_SEPARATOR . '..');
+define('ROOT', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Minifing');
 
 // include my TestCase
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Unit' . DIRECTORY_SEPARATOR . 'TestCase.php';

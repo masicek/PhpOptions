@@ -13,7 +13,7 @@ use \Tests\PhpOptions\TestCase;
 use \PhpOptions\Options;
 use \PhpOptions\Option;
 
-require_once ROOT . '/Minifing/PhpOptions.min.php';
+require_once ROOT . '/PhpOptions.min.php';
 
 define('IS_MINI', TRUE);
 

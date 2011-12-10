@@ -38,8 +38,8 @@ class TypesTest extends TestCase
 			-d "2001-02-5"
 			--dt "2011-dec-12 2:00PM"
 			-t 3PM
-			--dir "../../PhpOptions/Types/"
-			-f "../../PhpOptions/Types/AType.php"
+			--dir "../../../PhpOptions/Types/"
+			-f "../../../PhpOptions/Types/AType.php"
 			-e viktor@masicek.net
 			--enum bbb
 			--series abc,def|ghi;jkl
@@ -79,8 +79,8 @@ class TypesTest extends TestCase
 		$this->assertEquals(new \DateTime('2001-02-05'), $options->get('Date'));
 		$this->assertEquals(new \DateTime('2011-12-12 14:00:00'), $options->get('Datetime'));
 		$this->assertEquals('03:00:00PM', $options->get('Time'));
-		$this->assertEquals($this->setDirSep(__DIR__ . '/../../PhpOptions/Types/'), $options->get('Directory'));
-		$this->assertEquals($this->setDirSep(__DIR__ . '/../../PhpOptions/Types/AType.php'), $options->get('File'));
+		$this->assertEquals($this->setDirSep(__DIR__ . '/../../../PhpOptions/Types/'), $options->get('Directory'));
+		$this->assertEquals($this->setDirSep(__DIR__ . '/../../../PhpOptions/Types/AType.php'), $options->get('File'));
 		$this->assertEquals('viktor@masicek.net', $options->get('Email'));
 		$this->assertEquals('B', $options->get('Enum'));
 		$this->assertEquals(array('abc', 'def', 'ghi', 'jkl'), $options->get('Series'));
@@ -122,8 +122,8 @@ class TypesTest extends TestCase
 			-d "2001-02-5"
 			--dt "2011-dec-12 2:00PM"
 			-t 3PM
-			--dir "../../PhpOptions/Types/"
-			-f "../../PhpOptions/Types/AType.php"
+			--dir "../../../PhpOptions/Types/"
+			-f "../../../PhpOptions/Types/AType.php"
 			-e viktor@masicek.net
 			--enum bbb
 			--series abc,def|ghi;jkl
@@ -163,8 +163,8 @@ class TypesTest extends TestCase
 		$this->assertEquals('2001-02-5', $options->get('Date'));
 		$this->assertEquals('2011-dec-12 2:00PM', $options->get('Datetime'));
 		$this->assertEquals('3PM', $options->get('Time'));
-		$this->assertEquals('../../PhpOptions/Types/', $options->get('Directory'));
-		$this->assertEquals('../../PhpOptions/Types/AType.php', $options->get('File'));
+		$this->assertEquals('../../../PhpOptions/Types/', $options->get('Directory'));
+		$this->assertEquals('../../../PhpOptions/Types/AType.php', $options->get('File'));
 		$this->assertEquals('viktor@masicek.net', $options->get('Email'));
 		$this->assertEquals('bbb', $options->get('Enum'));
 		$this->assertEquals('abc,def|ghi;jkl', $options->get('Series'));

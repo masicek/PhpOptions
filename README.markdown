@@ -575,5 +575,44 @@ Examples
 --------
 
 ```php
-// TODO
+require_once 'PhpOptions/PhpOptions.min.php';
+
+use PhpOptions\Options;
+use PhpOptions\Option;
+
+$optionsList = array();
+$optionsList[] = Option::make('Help')->description('Show this help');
+$optionsList[] = Option::make('Name')->description('Name of user')->value();
+$optionsList[] = Option::make('Home')->short()->long('home-dir')->value(FALSE)->def('./home/common')
+	->description('Home directory of user');
+$optionsList[] = Option::make('Favorite color')->description('User`s favorite color')->value();
+$optionsList[] = Option::make('Color of eye')->description('User`s color of eye')->value();
+$options = new Options();
+
+$options->add($optionsList);
+$options->def('Help');
+$options->description("Simple script demonstrating PhpOptions\nauthor: Viktor Masicek <viktor@masicek.net>");
+
+// print help
+if ($options->get('Help')) {
+	echo $options->getHelp();
+	return;
+}
+
+// get values
+try {
+	$name = $options->get('Name');
+	$home = $options->get('Home');
+	$favorite = $options->get('-f');
+	$eye = $options->get('--color-of-eye');
+} catch (\PhpOptions\UserBadCallException $e) {
+	// Wrong using in command-line by user
+	echo $e->getMessage();
+}
+
+// print values
+printf('Name: %s\n', ($name ?: ''));
+printf('Home: %s\n', ($home ?: ''));
+printf('Favorite color: %s\n', ($favorite ?: ''));
+printf('Color of eye: %s\n', ($eye ?: ''));
 ```

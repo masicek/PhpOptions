@@ -6,6 +6,9 @@ We can define options, that grouped short and long options, define default value
 have typed expected values etc. We can make group from options and define dependences
 from options.
 
+This document containing user documentation, [API Documentation](http://phpoptions.masicek.net/api/index.html)
+is on [phpoptions.masicek.net/api/](http://phpoptions.masicek.net/api/index.html).
+
 Including
 ---------
 

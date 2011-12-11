@@ -23,7 +23,7 @@ class Options
 	/**
 	 * Version of PhpOptions
 	 */
-	const VERSION = '0.9.4';
+	const VERSION = '1.0.0';
 
 	/**
 	 * List of possible options

@@ -28,6 +28,8 @@ class TypesTest extends TestCase
 
 	public function testOk()
 	{
+		$this->setPropertyValue('Option', 'PhpOptions\Option::$types', NULL);
+
 		$this->setArguments('
 			-s "Lorem ipsum  donor"
 			-c "x"
@@ -112,6 +114,8 @@ class TypesTest extends TestCase
 
 	public function testOkNotFiltered()
 	{
+		$this->setPropertyValue('Option', 'PhpOptions\Option::$types', NULL);
+
 		$this->setArguments('
 			-s "Lorem ipsum  donor"
 			-c "x"

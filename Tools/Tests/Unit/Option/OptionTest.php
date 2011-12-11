@@ -26,6 +26,7 @@ require_once ROOT . '/Exceptions.php';
  * @covers PhpOptions\Option::getLong
  * @covers PhpOptions\Option::make
  * @covers PhpOptions\Option::__callStatic
+ * @covers PhpOptions\Option::getTypes
  */
 class OptionTest extends TestCase
 {

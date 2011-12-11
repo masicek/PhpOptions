@@ -170,16 +170,27 @@ class Option
 	 */
 	public static function __callStatic($type, $settings)
 	{
-		if (!self::$types)
-		{
-			self::$types = new Types\Types();
-		}
-
 		$name = (isset($settings[0])) ? array_shift($settings) : '';
 		$option = self::make($name);
-		$option->type = self::$types->getType($type, $settings);
+		$option->type = self::getTypes()->getType($type, $settings);
 		$option->value();
 		return $option;
+	}
+
+
+	/**
+	 * Register new type. It has to by child of abstract class AType.
+	 * It is possible rewrite already registered types (so defaults too).
+	 *
+	 * @param string $name Name of type
+	 * @param string $className Name of class of type with namespace
+	 * @param string $classPath Full path of file contains class of type
+	 *
+	 * @return void
+	 */
+	public static function registerType($name, $className, $classPath)
+	{
+		self::getTypes()->register($name, $className, $classPath);
 	}
 
 
@@ -480,7 +491,23 @@ class Option
 	}
 
 
-	// ---- private ----
+	// ---- PRIVATE ----
+
+
+	/**
+	 * Return object for work with types.
+	 *
+	 * @return Types\Types
+	 */
+	private static function getTypes()
+	{
+		if (!self::$types)
+		{
+			self::$types = new Types\Types();
+		}
+
+		return self::$types;
+	}
 
 
 	/**

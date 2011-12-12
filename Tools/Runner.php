@@ -157,9 +157,7 @@ class Runner
 		$options = implode(' ', $options);
 
 		$apigen = $this->setDirSep(LIBS_TOOLS . '/Apigen/apigen.php');
-		$output = array();
-		exec('php ' . $apigen . ' ' . $options, $output);
-		$this->printInfo(implode("\n", $output));
+		passthru('php ' . $apigen . ' ' . $options);
 	}
 
 

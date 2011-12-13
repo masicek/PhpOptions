@@ -571,7 +571,7 @@ Exceptions made by programmer by wrong set of expected options together (in corr
 \PhpOptions\UserBadCallException
 ```
 
-Exceptions made by user wrong using of script
+Exceptions made by user wrong using of script. This is enough to catch the exception only of the Options object.
 
 
 Examples
@@ -590,11 +590,16 @@ $optionsList[] = Option::make('Home')->short()->long('home-dir')->value(FALSE)->
 	->description('Home directory of user');
 $optionsList[] = Option::make('Favorite color')->description('User`s favorite color')->value();
 $optionsList[] = Option::make('Color of eye')->description('User`s color of eye')->value();
-$options = new Options();
 
-$options->add($optionsList);
-$options->def('Help');
-$options->description("Simple script demonstrating PhpOptions\nauthor: Viktor Masicek <viktor@masicek.net>");
+try {
+	$options = new Options();
+	$options->add($optionsList);
+	$options->def('Help');
+	$options->description("Simple script demonstrating PhpOptions\nauthor: Viktor Masicek <viktor@masicek.net>");
+} catch (\PhpOptions\UserBadCallException $e) {
+	// Wrong using in command-line by user
+	echo $e->getMessage();
+}
 
 // print help
 if ($options->get('Help')) {
@@ -603,15 +608,10 @@ if ($options->get('Help')) {
 }
 
 // get values
-try {
-	$name = $options->get('Name');
-	$home = $options->get('Home');
-	$favorite = $options->get('-f');
-	$eye = $options->get('--color-of-eye');
-} catch (\PhpOptions\UserBadCallException $e) {
-	// Wrong using in command-line by user
-	echo $e->getMessage();
-}
+$name = $options->get('Name');
+$home = $options->get('Home');
+$favorite = $options->get('-f');
+$eye = $options->get('--color-of-eye');
 
 // print values
 printf('Name: %s\n', ($name ?: ''));

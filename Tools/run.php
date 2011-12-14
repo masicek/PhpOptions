@@ -5,7 +5,7 @@
  *
  * Run Runner of scripts
  *
- * @link git@github.com:masicek/PhpOptions.git
+ * @link https://github.com/masicek/PhpOptions
  * @author Viktor Mašíček <viktor@masicek.net>
  * @license "New" BSD License
  */

@@ -2,7 +2,7 @@
 
 /**
  * PhpOptions
- * @link git@github.com:masicek/PhpOptions.git
+ * @link https://github.com/masicek/PhpOptions
  * @author Viktor Mašíček <viktor@masicek.net>
  * @license "New" BSD License
  */
@@ -288,7 +288,7 @@ class Runner
 
 		// comment with licence atc.
 		require_once $this->setDirSep(ROOT_TOOLS . '/Options.php');
-		$comment = '/** PhpOptions-' . \PhpOptions\Options::VERSION . ', Minified version of PhpOptions. @link git@github.com:masicek/PhpOptions.git @author Viktor Mašíček <viktor@masicek.net> @license "New" BSD License */';
+		$comment = '/** PhpOptions-' . \PhpOptions\Options::VERSION . ', Minified version of PhpOptions. @link https://github.com/masicek/PhpOptions @author Viktor Mašíček <viktor@masicek.net> @license "New" BSD License */';
 		$this->printInfo('Comment added', $verbose);
 
 		// save into file

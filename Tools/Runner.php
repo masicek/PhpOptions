@@ -417,7 +417,7 @@ class Runner
 	 */
 	private function setArguments($scriptName, $arguments)
 	{
-		$arguments = preg_replace('/(' . "\n|\t" . ')+/', ' ', $arguments);
+		$arguments = preg_replace('/(' . "\r\n|\t" . ')+/', ' ', $arguments);
 		$arguments = trim($arguments);
 		$argumentsNew = '';
 		$inQuation = FALSE;

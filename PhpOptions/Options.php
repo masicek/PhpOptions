@@ -301,7 +301,7 @@ class Options
 	{
 		$help = $this->description . "\n\n";
 
-		$options = $this->options;
+		$optionsNongroup = $this->options;
 
 		$indent = 0;
 		if ($this->groups)
@@ -311,12 +311,15 @@ class Options
 				$help .= $groupName . "\n";
 				foreach ($optionsNames as $optionName)
 				{
-					$help .= $options[$optionName]->getHelp(1) . "\n";
-					unset($options[$optionName]);
+					$help .= $this->options[$optionName]->getHelp(1) . "\n";
+					if (isset($optionsNongroup[$optionName]))
+					{
+						unset($optionsNongroup[$optionName]);
+					}
 				}
 			}
 
-			if (count($options) > 0)
+			if (count($optionsNongroup) > 0)
 			{
 				$help .= "\nNON GROUP OPTIONS:\n";
 			}
@@ -324,7 +327,7 @@ class Options
 		}
 
 		// print non group options
-		foreach ($options as $option)
+		foreach ($optionsNongroup as $option)
 		{
 			$help .= $option->getHelp($indent) . "\n";
 		}

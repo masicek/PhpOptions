@@ -88,11 +88,39 @@ class GetHelpTest extends TestCase
 
 		$help = $options->getHelp();
 		$prefix = "\t";
-		$this->assertRegExp('/Test Group/', $help);
-		$this->assertRegExp('/' . $prefix . '\[-f/', $help);
-		$this->assertRegExp('/' . $prefix . '\[-b/', $help);
-		$this->assertRegExp('/' . $prefix . '\[-c/', $help);
-		$this->assertRegExp('/NON GROUP OPTIONS/', $help);
+		$this->assertEquals(
+				'Test Group' . "\n" .
+				$prefix . '[-f, --foo]' . "\n" .
+				$prefix . '[-b, --bar]' . "\n" .
+				"\n" .
+				'NON GROUP OPTIONS:' . "\n" .
+				$prefix . '[-c, --car]',
+			trim($help));
+	}
+
+
+	public function testOneOptionInMoreGroups()
+	{
+		$optionsList = array();
+		$optionsList[] = Option::make('Foo');
+		$optionsList[] = Option::make('Bar');
+		$optionsList[] = Option::make('Car');
+
+		$options = new Options();
+		$options->add($optionsList);
+		$options->group('Test Group 1', array('Foo', 'Bar'));
+		$options->group('Test Group 2', array('Foo', 'Car'));
+
+		$help = $options->getHelp();
+		$prefix = "\t";
+		$this->assertEquals(
+				'Test Group 1' . "\n" .
+				$prefix . '[-f, --foo]' . "\n" .
+				$prefix . '[-b, --bar]' . "\n" .
+				'Test Group 2' . "\n" .
+				$prefix . '[-f, --foo]' . "\n" .
+				$prefix . '[-c, --car]',
+			trim($help));
 	}
 
 

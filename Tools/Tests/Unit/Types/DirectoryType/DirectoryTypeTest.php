@@ -34,6 +34,9 @@ class DirectoryTypeTest extends TestCase
 
 		$base = $this->getPropertyValue($type, 'base');
 		$this->assertNull($base);
+
+		$makeDir = $this->getPropertyValue($type, 'makeDir');
+		$this->assertFalse($makeDir);
 	}
 
 
@@ -46,6 +49,9 @@ class DirectoryTypeTest extends TestCase
 
 		$base = $this->getPropertyValue($type, 'base');
 		$this->assertNull($base);
+
+		$makeDir = $this->getPropertyValue($type, 'makeDir');
+		$this->assertFalse($makeDir);
 	}
 
 
@@ -58,6 +64,9 @@ class DirectoryTypeTest extends TestCase
 
 		$base = $this->getPropertyValue($type, 'base');
 		$this->assertEquals('./test/prepand/path', $base);
+
+		$makeDir = $this->getPropertyValue($type, 'makeDir');
+		$this->assertFalse($makeDir);
 	}
 
 
@@ -70,6 +79,69 @@ class DirectoryTypeTest extends TestCase
 
 		$base = $this->getPropertyValue($type, 'base');
 		$this->assertEquals('./test/prepand/path', $base);
+
+		$makeDir = $this->getPropertyValue($type, 'makeDir');
+		$this->assertFalse($makeDir);
+	}
+
+
+	public function testMakeDir()
+	{
+		$type = new DirectoryType(array('makeDir'));
+
+		$useFilter = $this->getPropertyValue($type, 'useFilter');
+		$this->assertTrue($useFilter);
+
+		$base = $this->getPropertyValue($type, 'base');
+		$this->assertNull($base);
+
+		$makeDir = $this->getPropertyValue($type, 'makeDir');
+		$this->assertTrue($makeDir);
+	}
+
+
+	public function testMakeDirAndNotUseFilter()
+	{
+		$type = new DirectoryType(array('makeDir', 'notFilter'));
+
+		$useFilter = $this->getPropertyValue($type, 'useFilter');
+		$this->assertFalse($useFilter);
+
+		$base = $this->getPropertyValue($type, 'base');
+		$this->assertNull($base);
+
+		$makeDir = $this->getPropertyValue($type, 'makeDir');
+		$this->assertTrue($makeDir);
+	}
+
+
+	public function testMakeDirAndPrepandBase()
+	{
+		$type = new DirectoryType(array('makeDir', './test/prepand/path'));
+
+		$useFilter = $this->getPropertyValue($type, 'useFilter');
+		$this->assertTrue($useFilter);
+
+		$base = $this->getPropertyValue($type, 'base');
+		$this->assertEquals('./test/prepand/path', $base);
+
+		$makeDir = $this->getPropertyValue($type, 'makeDir');
+		$this->assertTrue($makeDir);
+	}
+
+
+	public function testMakeDirAndPrepandBaseAndNotUseFilter()
+	{
+		$type = new DirectoryType(array('makeDir', './test/prepand/path', 'notFilter'));
+
+		$useFilter = $this->getPropertyValue($type, 'useFilter');
+		$this->assertFalse($useFilter);
+
+		$base = $this->getPropertyValue($type, 'base');
+		$this->assertEquals('./test/prepand/path', $base);
+
+		$makeDir = $this->getPropertyValue($type, 'makeDir');
+		$this->assertTrue($makeDir);
 	}
 
 

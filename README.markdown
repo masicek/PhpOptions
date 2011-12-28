@@ -149,6 +149,16 @@ $option = \PhpOptions\Option::directory('Foo', '[BASE_PATH_OF_DIRECTORY]');
 * **filter** - return read directory from command-line with prefix ```[BASE_PATH_OF_DIRECTORY]```,
 with corect OS directory separator and added separator at the end
 
+```php
+$option = \PhpOptions\Option::directory('Foo', 'makeDir');
+$option = \PhpOptions\Option::directory('Foo', 'makeDir', '[BASE_PATH_OF_DIRECTORY]');
+```
+
+* **check** - check if read directory from command-line (with prefix ```[BASE_PATH_OF_DIRECTORY]```) exist.
+If not, it is recursively created, **but only if final path
+(read from command-line or with BASE_PATH_OF_DIRECTORY) is full path**.
+* **filter** - _same as before variants_
+
 ### Email type
 
 ```php

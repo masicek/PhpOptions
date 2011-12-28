@@ -28,6 +28,14 @@ class DirectoryType extends AType
 
 
 	/**
+	 * Flag for making directory if it is not exist
+	 *
+	 * @var string
+	 */
+	private $makeDir = FALSE;
+
+
+	/**
 	 * Set object
 	 * 'base' => base path of input value
 	 *
@@ -36,6 +44,15 @@ class DirectoryType extends AType
 	public function __construct($settings = array())
 	{
 		parent::__construct($settings);
+
+		if (in_array('makeDir', $settings))
+		{
+			$this->makeDir = TRUE;
+			unset($settings[array_search('makeDir', $settings)]);
+			// reset indexing
+			$settings = array_values($settings);
+		}
+
 		if (isset($settings[0]))
 		{
 			$this->base = $settings[0];
@@ -57,10 +74,20 @@ class DirectoryType extends AType
 		{
 			$isDir = TRUE;
 		}
-		elseif ($this->base && is_dir($this->base . DIRECTORY_SEPARATOR . $value))
+		elseif ($this->base && is_dir($this->make($this->base, $value)))
 		{
 			$isDir = TRUE;
 		}
+
+		if (!$isDir && $this->makeDir)
+		{
+			$value = $this->useFilter($value);
+			if ($this->isFullPath($value))
+			{
+				$isDir = mkdir($value, 0, TRUE);
+			}
+		}
+
 		return $isDir;
 	}
 
@@ -75,13 +102,26 @@ class DirectoryType extends AType
 	protected function useFilter($value)
 	{
 		// base is set and value not full path
-		if ($this->base && !preg_match('/^([a-zA-Z]:\\\|\/)/', $value))
+		if ($this->base && !$this->isFullPath($value))
 		{
 			$value = $this->make($this->base, $value);
 		}
 		$value = $this->make($value , '/');
 
 		return $value;
+	}
+
+
+	/**
+	 * Detect if the path is full path
+	 *
+	 * @param string $path Detected path
+	 *
+	 * @return bool
+	 */
+	private function isFullPath($path)
+	{
+		return (bool)preg_match('/^([a-zA-Z]:\\\|\/)/', $path);
 	}
 
 

@@ -21,6 +21,7 @@ require_once ROOT . '/Types/DirectoryType.php';
  *
  * @covers PhpOptions\Types\DirectoryType::useFilter
  * @covers PhpOptions\Types\DirectoryType::make
+ * @covers PhpOptions\Types\DirectoryType::isFullPath
  */
 class UseFilterTest extends TestCase
 {

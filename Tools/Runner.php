@@ -63,15 +63,19 @@ class Runner
 		$optionsList[] = Option::make('Tests minifing')->short()->long('tm')->description('Run minifing tests');
 		$optionsList[] = Option::make('Docs')->description('Run script for generating API documenation of PhpOptions');
 
-		$options = new Options();
-		$options->add($optionsList);
-		$options->defaults('Help');
-		$version = Options::VERSION;
-		$options->description(
-			"PhpOptions $version\nauthor: Viktor Masicek <viktor@masicek.net>\n\n" .
-			"Script for generating minified version, running tests\n" .
-			"and generating API documentation of PhpOptions."
-		);
+		try {
+			$options = new Options();
+			$options->add($optionsList);
+			$options->defaults('Help');
+			$version = Options::VERSION;
+			$options->description(
+				"PhpOptions $version\nauthor: Viktor Masicek <viktor@masicek.net>\n\n" .
+				"Script for generating minified version, running tests\n" .
+				"and generating API documentation of PhpOptions."
+			);
+		} catch (\PhpOptionsRunner\UserBadCallException $e) {
+			echo $e->getMessage();
+		}
 
 		$this->options = $options;
 	}

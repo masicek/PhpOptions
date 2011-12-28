@@ -193,4 +193,19 @@ class GetValueTest extends TestCase
 	}
 
 
+	public function testTypeFilterOptionalValueWithoutValue()
+	{
+		$this->setArguments('-f -b');
+
+		$option = Option::enum('foo', array('f' => 'first', 's' => 'second'))->value(FALSE);
+		$this->assertTrue($option->getValue());
+
+		$option = Option::series('bar')->value(FALSE);
+		$this->assertTrue($option->getValue());
+
+		$option = Option::series('car')->value(FALSE);
+		$this->assertFalse($option->getValue());
+	}
+
+
 }

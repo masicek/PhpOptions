@@ -591,7 +591,12 @@ class Option
 			{
 				throw new UserBadCallException($this->getOptions() . ': Option has bad format.');
 			}
-			$value = $this->type->filter($value);
+
+			// do not filter optional value without set value
+			if (($this->valueRequired != self::VALUE_OPTIONAL) || !is_bool($value))
+			{
+				$value = $this->type->filter($value);
+			}
 		}
 
 		return $value;

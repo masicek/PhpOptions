@@ -99,6 +99,12 @@ class Runner
 
 		$all = $options->get('All');
 
+		// minifing
+		if ($all || $options->get('Minifing'))
+		{
+			$this->generateMinifing();
+		}
+
 		// tests
 		if ($all || $options->get('Tests'))
 		{
@@ -120,12 +126,6 @@ class Runner
 			{
 				$this->runTestsMinifing();
 			}
-		}
-
-		// minifing
-		if ($all || $options->get('Minifing'))
-		{
-			$this->generateMinifing();
 		}
 
 		// documentation

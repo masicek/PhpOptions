@@ -396,7 +396,7 @@ Option is not required as default.
 $option = \PhpOptions\Option::make('Foo')->required();
 ```
 
-Set option as required.
+Set option as required. It does not make sense for option with default value and required value.
 
 ### Expected value of option
 
@@ -420,7 +420,7 @@ Set option with optional value.
 $option = \PhpOptions\Option::make('Foo')->value(FALSE)->defaults('Lorem ipsum');
 ```
 
-It make sence only for option with optional value. If option is not set on command-line or
+It make sence only for option with optional value or optional option with optional or required value. If option is not set on command-line or
 is set without value on command-line, default value is returned (see **Get value of defined options read from command-line**).
 The example set default value of option on 'Lorem ipsum'.
 

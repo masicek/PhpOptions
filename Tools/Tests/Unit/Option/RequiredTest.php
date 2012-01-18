@@ -42,4 +42,11 @@ class RequiredTest extends TestCase
 	}
 
 
+	public function testRequiredValueDefaultsValueRequiredOption()
+	{
+		$this->setExpectedException('\PhpOptions\LogicException');
+		$option = Option::make('Foo')->value()->defaults('Lorem ipsum')->required();
+	}
+
+
 }

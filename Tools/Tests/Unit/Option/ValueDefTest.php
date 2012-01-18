@@ -35,10 +35,18 @@ class ValueDefTest extends TestCase
 	}
 
 
-	public function testDefaultsValueRequiredValue()
+	public function testDefaultsValueRequiredValueOptionalOption()
+	{
+		$option = Option::make('Foo')->value()->defaults('Lorem ipsum');
+		$this->assertInstanceOf('\PhpOptions\Option', $option);
+		$this->assertEquals('Lorem ipsum', $option->getDefaults());
+	}
+
+
+	public function testRequiredValueRequiredOptionDefaultsValue()
 	{
 		$this->setExpectedException('\PhpOptions\LogicException');
-		$option = Option::make('Foo')->value()->defaults('Lorem ipsum');
+		$option = Option::make('Foo')->value()->required()->defaults('Lorem ipsum');
 	}
 
 

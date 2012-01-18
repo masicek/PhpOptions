@@ -248,14 +248,17 @@ class Option
 	 *
 	 * @param mixed $default
 	 *
-	 * @throws LogicException The default value make sense only for options with optional value.
+	 * @throws LogicException The default value makes sense only for options with optional value or optional option with optional or required value.
 	 * @return Option
 	 */
 	public function defaults($defaults = NULL)
 	{
-		if (!is_null($defaults) && $this->valueRequired != self::VALUE_OPTIONAL)
+		if (!is_null($defaults) && !(
+			($this->valueRequired == self::VALUE_OPTIONAL) ||
+			($this->valueRequired == self::VALUE_REQUIRE && $this->required == FALSE)
+		))
 		{
-			throw new LogicException($this->name . ': The default value makes sense only for options with optional value.');
+			throw new LogicException($this->name . ': The default value makes sense only for options with optional value or optional option with optional or required value.');
 		}
 
 		$this->defaults = $defaults;
@@ -268,10 +271,16 @@ class Option
 	 *
 	 * @param bool $required
 	 *
+	 * @throws LogicException The required option does not make sense for option with default value and required value
 	 * @return Option
 	 */
 	public function required($required = TRUE)
 	{
+		if ($this->valueRequired == self::VALUE_REQUIRE && !is_null($this->defaults))
+		{
+			throw new LogicException($this->name . ': The required option does not make sense for option with default value and required value.');
+		}
+
 		$this->required = (bool)$required;
 		return $this;
 	}
@@ -581,6 +590,11 @@ class Option
 				{
 					throw new UserBadCallException($this->getOptions() . ': Option has require value, but no set.');
 				}
+				else if ($value === FALSE && !is_null($this->defaults))
+				{
+					$value = $this->defaults;
+				}
+
 				break;
 		}
 

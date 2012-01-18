@@ -44,7 +44,7 @@ class DatetimeType extends AType
 	public function __construct($settings = array())
 	{
 		parent::__construct($settings);
-		if (in_array('timestamp', $settings))
+		if ($this->settingsHasFlag('timestamp', $settings))
 		{
 			$this->timestamp = TRUE;
 		}

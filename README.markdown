@@ -59,6 +59,9 @@ Not filered value return value read from comman-line.
 $option = \PhpOptions\Option::[NAME_OF_TYPE]('Foo', 'notFilter');
 ```
 
+All flags options (like ```'notFiltered'```) are checked case insensitive.
+
+
 Possible values of ```[NAME_OF_TYPE]```:
 
 * char

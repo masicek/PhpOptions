@@ -32,14 +32,10 @@ abstract class AType
 	 */
 	public function __construct(&$settings = array())
 	{
-		if (in_array('notFilter', $settings))
+		if ($this->settingsHasFlag('notFilter', $settings))
 		{
-			unset($settings[array_search('notFilter', $settings)]);
 			$this->useFilter = FALSE;
 		}
-
-		// reset indexing
-		$settings = array_values($settings);
 	}
 
 
@@ -100,6 +96,42 @@ abstract class AType
 	protected function useFilter($value)
 	{
 		return $value;
+	}
+
+
+	/**
+	 * Return that settings has set flag (case insensitive).
+	 *
+	 * @param type $flag Searched flag
+	 * @param array $settings Array of setting of object
+	 *
+	 * @return boolean
+	 */
+	protected function settingsHasFlag($flag, &$settings)
+	{
+		$flag = strtolower($flag);
+		$settingsLower = $settings;
+		array_walk($settingsLower, function (&$item, $key) {
+			if (is_string($item))
+			{
+				$item = strtolower($item);
+			}
+		});
+		$flagIdx = array_search($flag, $settingsLower);
+		if ($flagIdx !== FALSE)
+		{
+			$hasFlag = TRUE;
+			// remove flag
+			unset($settings[$flagIdx]);
+			// reset indexing
+			$settings = array_values($settings);
+		}
+		else
+		{
+			$hasFlag = FALSE;
+		}
+
+		return $hasFlag;
 	}
 
 

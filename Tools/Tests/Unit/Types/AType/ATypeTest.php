@@ -20,6 +20,7 @@ require_once 'FooType.php';
  *
  * @covers PhpOptions\Types\AType::__construct
  * @covers Tests\PhpOptions\Types\AType\FooType::__construct
+ * @covers Tests\PhpOptions\Types\AType\FooType::settingsHasFlag
  */
 class ATypeTest extends TestCase
 {
@@ -33,12 +34,26 @@ class ATypeTest extends TestCase
 	}
 
 
-	public function testNotUseFilter()
+	/**
+	 * @dataProvider providerNotUseFilter
+	 */
+	public function testNotUseFilter($setting)
 	{
-		$type = new FooType(array('notFilter'));
+		$type = new FooType(array($setting));
 		$useFilter = $this->getPropertyValue($type, 'useFilter');
 		$this->assertFalse($useFilter);
 	}
 
+
+	public function providerNotUseFilter()
+	{
+		return array(
+			array('notFilter'),
+			array('notfilter'),
+			array('NOTfilter'),
+			array('notFIltER'),
+			array('NOTFILTER'),
+		);
+	}
 
 }

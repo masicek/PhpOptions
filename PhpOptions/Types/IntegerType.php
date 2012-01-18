@@ -36,7 +36,7 @@ class IntegerType extends AType
 	public function __construct($settings = array())
 	{
 		parent::__construct($settings);
-		if (in_array('unsigned', $settings))
+		if ($this->settingsHasFlag('unsigned', $settings))
 		{
 			$this->unsigned = TRUE;
 		}

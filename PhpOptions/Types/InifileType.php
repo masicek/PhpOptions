@@ -43,7 +43,7 @@ class InifileType extends FileType
 	public function __construct($settings = array())
 	{
 		parent::__construct($settings);
-		if (in_array('notSections', $settings))
+		if ($this->settingsHasFlag('notSections', $settings))
 		{
 			$this->sections = FALSE;
 		}

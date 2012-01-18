@@ -45,12 +45,9 @@ class DirectoryType extends AType
 	{
 		parent::__construct($settings);
 
-		if (in_array('makeDir', $settings))
+		if ($this->settingsHasFlag('makeDir', $settings))
 		{
 			$this->makeDir = TRUE;
-			unset($settings[array_search('makeDir', $settings)]);
-			// reset indexing
-			$settings = array_values($settings);
 		}
 
 		if (isset($settings[0]))

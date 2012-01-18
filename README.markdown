@@ -503,6 +503,12 @@ $options->dependences('Foo', array('Bar'));
 It define, that option ```Foo``` need option ```Bar```. If option ```Foo``` is set in command-lien,
 it have to be set option ```Bar``` in comman-line too or option ```Bar``` have to have default value.
 
+```php
+$options->dependences('Foo', array('Bar'), '[NAME_OF_GROUP]');
+```
+
+It define dependences same as first example and moreover make froup from options 'Foo' and 'Bar'.
+
 
 Generate help
 -------------

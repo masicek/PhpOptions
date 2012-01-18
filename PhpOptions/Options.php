@@ -211,12 +211,13 @@ class Options
 	 *
 	 * @param string $main Main option for which we define needed options
 	 * @param string|array $needed Needed options for main option
+	 * @param string $groupName Name of group into which put all options (main + needed)
 	 *
 	 * @throws InvalidArgumentException Unknown option
 	 * @throws UserBadCallException Some option need some another option
 	 * @return Options
 	 */
-	public function dependences($main, $needed)
+	public function dependences($main, $needed, $groupName = NULL)
 	{
 		if (!is_array($needed))
 		{
@@ -253,6 +254,13 @@ class Options
 		}
 
 		$this->options[$main]->dependences($neededOptions);
+
+		// make group
+		if ($groupName)
+		{
+			array_unshift($needed, $main);
+			$this->group($groupName, $needed);
+		}
 
 		return $this;
 	}

@@ -23,6 +23,7 @@ require_once ROOT . '/Exceptions.php';
  * @author Viktor Mašíček <viktor@masicek.net>
  *
  * @covers PhpOptions\Options::group
+ * @covers PhpOptions\Options::dependences
  */
 class GroupTest extends TestCase
 {
@@ -60,6 +61,7 @@ class GroupTest extends TestCase
 		$options = new Options();
 		$options->add(Option::make('Foo'));
 		$this->assertInstanceOf('PhpOptions\Options', $options->group('Lorem ipsum', 'Foo'));
+		$this->assertEquals(array('Lorem ipsum' => array('Foo')), $this->getPropertyValue($options, 'groups'));
 	}
 
 
@@ -69,6 +71,27 @@ class GroupTest extends TestCase
 		$options->add(Option::make('Foo'));
 		$options->add(Option::make('Bar'));
 		$this->assertInstanceOf('PhpOptions\Options', $options->group('Lorem ipsum', array('Foo', 'Bar')));
+		$this->assertEquals(array('Lorem ipsum' => array('Foo', 'Bar')), $this->getPropertyValue($options, 'groups'));
+	}
+
+
+	public function testByDependences()
+	{
+		$options = new Options();
+		$options->add(Option::make('Foo'));
+		$options->add(Option::make('Bar'));
+		$this->assertInstanceOf('PhpOptions\Options', $options->dependences('Foo', array('Bar'), 'Lorem ipsum'));
+		$this->assertEquals(array('Lorem ipsum' => array('Foo', 'Bar')), $this->getPropertyValue($options, 'groups'));
+	}
+
+
+	public function testNotByDependences()
+	{
+		$options = new Options();
+		$options->add(Option::make('Foo'));
+		$options->add(Option::make('Bar'));
+		$this->assertInstanceOf('PhpOptions\Options', $options->dependences('Foo', array('Bar')));
+		$this->assertEquals(array(), $this->getPropertyValue($options, 'groups'));
 	}
 
 

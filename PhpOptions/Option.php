@@ -476,7 +476,7 @@ class Option
 		// default value
 		if ($this->defaults)
 		{
-			$help .= "\n\t" . $indent . 'DEFAULT="' . $this->defaults . '"';
+			$help .= PHP_EOL . "\t" . $indent . 'DEFAULT="' . $this->defaults . '"';
 		}
 
 		// needed options
@@ -487,13 +487,13 @@ class Option
 			{
 				$helpNeeded[] = $neededOption->getOptions();
 			}
-			$help .= "\n\t" . $indent . 'NEEDED: ' . implode('; ', $helpNeeded);
+			$help .= PHP_EOL . "\t" . $indent . 'NEEDED: ' . implode('; ', $helpNeeded);
 		}
 
 		// descriptions
 		if ($this->description)
 		{
-			$help .= "\n\t" . $indent . str_replace("\n", "\n\t" . $indent, $this->description);
+			$help .= PHP_EOL . "\t" . $indent . str_replace(PHP_EOL, PHP_EOL . "\t" . $indent, $this->description);
 		}
 
 		return $help;

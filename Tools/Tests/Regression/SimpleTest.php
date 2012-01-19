@@ -44,7 +44,7 @@ class SimpleTest extends TestCase
 		$options = new Options();
 		$options->add($optionsList);
 		$options->defaults('Help');
-		$options->description("Lotrem ipsum\ndolor sit amet");
+		$options->description('Lotrem ipsum dolor sit amet');
 
 		// get values
 		$this->assertEquals($values[0], $options->get('Help'));

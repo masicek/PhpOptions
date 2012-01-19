@@ -41,7 +41,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setArguments($arguments)
 	{
-		$arguments = preg_replace('/(' . "\r\n|\t" . ')+/', ' ', $arguments);
+		$arguments = preg_replace('/(' . PHP_EOL . "|\t" . ')+/', ' ', $arguments);
 		$arguments = trim($arguments);
 		$argumentsNew = '';
 		$inQuation = FALSE;

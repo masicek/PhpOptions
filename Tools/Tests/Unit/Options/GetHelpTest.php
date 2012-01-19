@@ -89,11 +89,11 @@ class GetHelpTest extends TestCase
 		$help = $options->getHelp();
 		$prefix = "\t";
 		$this->assertEquals(
-				'Test Group' . "\n" .
-				$prefix . '[-f, --foo]' . "\n" .
-				$prefix . '[-b, --bar]' . "\n" .
-				"\n" .
-				'NON GROUP OPTIONS:' . "\n" .
+				'Test Group' . PHP_EOL .
+				$prefix . '[-f, --foo]' . PHP_EOL .
+				$prefix . '[-b, --bar]' . PHP_EOL .
+				PHP_EOL .
+				'NON GROUP OPTIONS:' . PHP_EOL .
 				$prefix . '[-c, --car]',
 			trim($help));
 	}
@@ -114,11 +114,11 @@ class GetHelpTest extends TestCase
 		$help = $options->getHelp();
 		$prefix = "\t";
 		$this->assertEquals(
-				'Test Group 1' . "\n" .
-				$prefix . '[-f, --foo]' . "\n" .
-				$prefix . '[-b, --bar]' . "\n" .
-				'Test Group 2' . "\n" .
-				$prefix . '[-f, --foo]' . "\n" .
+				'Test Group 1' . PHP_EOL .
+				$prefix . '[-f, --foo]' . PHP_EOL .
+				$prefix . '[-b, --bar]' . PHP_EOL .
+				'Test Group 2' . PHP_EOL .
+				$prefix . '[-f, --foo]' . PHP_EOL .
 				$prefix . '[-c, --car]',
 			trim($help));
 	}

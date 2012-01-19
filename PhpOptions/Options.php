@@ -307,7 +307,7 @@ class Options
 	 */
 	public function getHelp()
 	{
-		$help = $this->description . "\n\n";
+		$help = $this->description . PHP_EOL . PHP_EOL;
 
 		$optionsNongroup = $this->options;
 
@@ -316,10 +316,10 @@ class Options
 		{
 			foreach ($this->groups as $groupName => $optionsNames)
 			{
-				$help .= $groupName . "\n";
+				$help .= $groupName . PHP_EOL;
 				foreach ($optionsNames as $optionName)
 				{
-					$help .= $this->options[$optionName]->getHelp(1) . "\n";
+					$help .= $this->options[$optionName]->getHelp(1) . PHP_EOL;
 					if (isset($optionsNongroup[$optionName]))
 					{
 						unset($optionsNongroup[$optionName]);
@@ -329,7 +329,7 @@ class Options
 
 			if (count($optionsNongroup) > 0)
 			{
-				$help .= "\nNON GROUP OPTIONS:\n";
+				$help .= PHP_EOL . 'NON GROUP OPTIONS:' . PHP_EOL;
 			}
 			$indent = 1;
 		}
@@ -337,7 +337,7 @@ class Options
 		// print non group options
 		foreach ($optionsNongroup as $option)
 		{
-			$help .= $option->getHelp($indent) . "\n";
+			$help .= $option->getHelp($indent) . PHP_EOL;
 		}
 
 		return $help;

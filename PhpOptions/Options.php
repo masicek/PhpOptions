@@ -26,6 +26,11 @@ class Options
 	const VERSION = '1.1.0';
 
 	/**
+	 * Max length of one line
+	 */
+	const HELP_MAX_LENGTH = 75;
+
+	/**
 	 * List of possible options
 	 *
 	 * @var array of Option
@@ -305,9 +310,9 @@ class Options
 	 *
 	 * @return string
 	 */
-	public function getHelp()
+	public function getHelp($maxLength = self::HELP_MAX_LENGTH)
 	{
-		$help = $this->description . PHP_EOL . PHP_EOL;
+		$help = $this->wordwrap($this->description, $maxLength) . PHP_EOL . PHP_EOL;
 
 		$optionsNongroup = $this->options;
 
@@ -316,10 +321,10 @@ class Options
 		{
 			foreach ($this->groups as $groupName => $optionsNames)
 			{
-				$help .= $groupName . PHP_EOL;
+				$help .= $this->wordwrap($groupName, $maxLength) . PHP_EOL;
 				foreach ($optionsNames as $optionName)
 				{
-					$help .= $this->options[$optionName]->getHelp(1) . PHP_EOL;
+					$help .= $this->options[$optionName]->getHelp($maxLength, 1) . PHP_EOL;
 					if (isset($optionsNongroup[$optionName]))
 					{
 						unset($optionsNongroup[$optionName]);
@@ -329,7 +334,7 @@ class Options
 
 			if (count($optionsNongroup) > 0)
 			{
-				$help .= PHP_EOL . 'NON GROUP OPTIONS:' . PHP_EOL;
+				$help .= PHP_EOL . $this->wordwrap('NON GROUP OPTIONS:', $maxLength) . PHP_EOL;
 			}
 			$indent = 1;
 		}
@@ -337,7 +342,7 @@ class Options
 		// print non group options
 		foreach ($optionsNongroup as $option)
 		{
-			$help .= $option->getHelp($indent) . PHP_EOL;
+			$help .= $option->getHelp($maxLength, $indent) . PHP_EOL;
 		}
 
 		return $help;
@@ -400,6 +405,20 @@ class Options
 		{
 			throw new LogicException($name . ': Option with long variant "' . $long . '" already exists.');
 		}
+	}
+
+
+	/**
+	 * Wrapping input sring on maximal length
+	 *
+	 * @param string $string Wrapped string
+	 * @param int $maxLength Maximla length of one line
+	 *
+	 * @return string
+	 */
+	private function wordwrap($string, $maxLength)
+	{
+		return wordwrap($string, $maxLength, PHP_EOL, TRUE);
 	}
 
 

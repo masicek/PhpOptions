@@ -36,6 +36,11 @@ class Option
 	 */
 	const VALUE_OPTIONAL = 'value_optional';
 
+	/**
+	 * Length of indent in printed help
+	 */
+	const HELP_INDENT_LENGTH = 4;
+
 
 	/**
 	 * Object for making types objects
@@ -433,12 +438,14 @@ class Option
 	 *
 	 * @return string
 	 */
-	public function getHelp($indent = 0)
+	public function getHelp($maxLength, $indent = 0)
 	{
+		$indentString = str_repeat(' ', self::HELP_INDENT_LENGTH);
+
 		// indent
 		if ($indent)
 		{
-			$indent = implode('', array_fill(0, $indent, "\t"));
+			$indent = implode('', array_fill(0, $indent, $indentString));
 		}
 		else
 		{
@@ -470,13 +477,13 @@ class Option
 		{
 			$help = '[' . $help . ']';
 		}
-		$help = $indent . $help;
+		$help = $this->wordwrap($help, $maxLength, $indent);
 
 
 		// default value
 		if ($this->defaults)
 		{
-			$help .= PHP_EOL . "\t" . $indent . 'DEFAULT="' . $this->defaults . '"';
+			$help .= PHP_EOL . $this->wordwrap('DEFAULT="' . $this->defaults . '"', $maxLength, $indentString . $indent);
 		}
 
 		// needed options
@@ -487,13 +494,13 @@ class Option
 			{
 				$helpNeeded[] = $neededOption->getOptions();
 			}
-			$help .= PHP_EOL . "\t" . $indent . 'NEEDED: ' . implode('; ', $helpNeeded);
+			$help .= PHP_EOL . $this->wordwrap('NEEDED: ' . implode('; ', $helpNeeded), $maxLength, $indentString . $indent);
 		}
 
 		// descriptions
 		if ($this->description)
 		{
-			$help .= PHP_EOL . "\t" . $indent . str_replace(PHP_EOL, PHP_EOL . "\t" . $indent, $this->description);
+			$help .= PHP_EOL . $this->wordwrap(str_replace(PHP_EOL, PHP_EOL . $indentString . $indent, $this->description), $maxLength, $indentString . $indent);
 		}
 
 		return $help;
@@ -615,6 +622,31 @@ class Option
 
 		return $value;
 	}
+
+
+	/**
+	 * Wrapping input sring on maximal length and prepand prefix on each line
+	 *
+	 * @param string $string Wrapped string
+	 * @param int $maxLength Maximla length of one line
+	 * @param string $prefix Prepanded prefix
+	 *
+	 * @return string
+	 */
+	private function wordwrap($string, $maxLength, $prefix)
+	{
+		$string = wordwrap($string, $maxLength - strlen($prefix), PHP_EOL, FALSE);
+		$strings = explode(PHP_EOL, $string);
+		array_walk($strings,
+			function (&$item, $key, $prefix) {
+				$item =  $prefix . trim($item);
+			},
+			$prefix
+		);
+		$string = implode(PHP_EOL, $strings);
+		return $string;
+	}
+
 
 
 }

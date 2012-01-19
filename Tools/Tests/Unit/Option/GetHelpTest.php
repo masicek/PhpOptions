@@ -28,11 +28,11 @@ class GetHelpTest extends TestCase
 	public function testShort()
 	{
 		$option = Option::make('Foo');
-		$help = $option->getHelp();
+		$help = $option->getHelp(40);
 		$this->assertRegExp('/-f/', $help);
 
 		$option = Option::make('Bar')->short();
-		$help = $option->getHelp();
+		$help = $option->getHelp(40);
 		$this->assertNotRegExp('/-b[^a]/', $help);
 	}
 
@@ -40,11 +40,11 @@ class GetHelpTest extends TestCase
 	public function testLong()
 	{
 		$option = Option::make('Foo');
-		$help = $option->getHelp();
+		$help = $option->getHelp(40);
 		$this->assertRegExp('/--foo/', $help);
 
 		$option = Option::make('Bar')->long();
-		$help = $option->getHelp();
+		$help = $option->getHelp(40);
 		$this->assertNotRegExp('/--bar/', $help);
 	}
 
@@ -54,14 +54,14 @@ class GetHelpTest extends TestCase
 	 */
 	public function testDefaults($indent, $prefix)
 	{
-		$prefix .= "\t";
+		$prefix .= '    ';
 
 		$option = Option::make('Foo')->value(FALSE)->defaults('Lorem ipsum');
-		$help = $option->getHelp($indent);
+		$help = $option->getHelp(40, $indent);
 		$this->assertRegExp('/' . $prefix . 'DEFAULT="Lorem ipsum"/', $help);
 
 		$option = Option::make('Bar');
-		$help = $option->getHelp($indent);
+		$help = $option->getHelp(40, $indent);
 		$this->assertNotRegExp('/DEFAULT/', $help);
 	}
 
@@ -71,9 +71,9 @@ class GetHelpTest extends TestCase
 	 */
 	public function testDescriptions($indent, $prefix)
 	{
-		$prefix .= "\t";
+		$prefix .= '    ';
 		$option = Option::make('Foo')->description('Description of options');
-		$help = $option->getHelp($indent);
+		$help = $option->getHelp(40, $indent);
 		$this->assertRegExp('/' . $prefix . 'Description of option/', $help);
 	}
 
@@ -83,16 +83,16 @@ class GetHelpTest extends TestCase
 	 */
 	public function testDependences($indent, $prefix)
 	{
-		$prefix .= "\t";
+		$prefix .= '    ';
 
 		$foo = Option::make('Foo');
 		$bar = Option::make('Bar');
 		$option = Option::make('Car')->dependences(array($foo, $bar));
-		$help = $option->getHelp($indent);
+		$help = $option->getHelp(40, $indent);
 		$this->assertRegExp('/' . $prefix . 'NEEDED: -f, --foo; -b, --bar/', $help);
 
 		$option = Option::make('Car');
-		$help = $option->getHelp($indent);
+		$help = $option->getHelp(40, $indent);
 		$this->assertNotRegExp('/NEEDED/', $help);
 	}
 
@@ -100,17 +100,17 @@ class GetHelpTest extends TestCase
 	public function testValue()
 	{
 		$option = Option::make('Foo')->value();
-		$help = $option->getHelp();
+		$help = $option->getHelp(40);
 		$this->assertRegExp('/-f="VALUE"/', $help);
 		$this->assertRegExp('/--foo="VALUE"/', $help);
 
 		$option = Option::make('Bar')->value(FALSE);
-		$help = $option->getHelp();
+		$help = $option->getHelp(40);
 		$this->assertRegExp('/-b\[="VALUE"\]/', $help);
 		$this->assertRegExp('/--bar\[="VALUE"\]/', $help);
 
 		$option = Option::make('Car');
-		$help = $option->getHelp();
+		$help = $option->getHelp(40);
 		$this->assertNotRegExp('/="VALUE"/', $help);
 		$this->assertNotRegExp('/="VALUE"/', $help);
 	}
@@ -119,12 +119,12 @@ class GetHelpTest extends TestCase
 	public function testType()
 	{
 		$option = Option::make('Foo')->value();
-		$help = $option->getHelp();
+		$help = $option->getHelp(40);
 		$this->assertRegExp('/-f="VALUE"/', $help);
 		$this->assertRegExp('/--foo="VALUE"/', $help);
 
 		$option = Option::string('Bar');
-		$help = $option->getHelp();
+		$help = $option->getHelp(40);
 		$this->assertRegExp('/-b="STRING"/', $help);
 		$this->assertRegExp('/--bar="STRING"/', $help);
 	}
@@ -136,11 +136,11 @@ class GetHelpTest extends TestCase
 	public function testRequired($indent, $prefix)
 	{
 		$option = Option::make('Foo');
-		$help = $option->getHelp($indent);
+		$help = $option->getHelp(40, $indent);
 		$this->assertRegExp('/' . $prefix . '\[-f[^]]*--foo.*\]/', $help);
 
 		$option = Option::make('Bar')->required();
-		$help = $option->getHelp($indent);
+		$help = $option->getHelp(40, $indent);
 		$this->assertNotRegExp('/' . $prefix . '\[-b[^]]*--bar.*\]/', $help);
 	}
 
@@ -148,9 +148,9 @@ class GetHelpTest extends TestCase
 	public function providerIndent()
 	{
 		return array(
-			array(0, ""),
-			array(1, "\t"),
-			array(2, "\t\t"),
+			array(0, ''),
+			array(1, '    '),
+			array(2, '        '),
 		);
 	}
 

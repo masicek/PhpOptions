@@ -23,7 +23,7 @@ class Options
 	/**
 	 * Version of PhpOptions
 	 */
-	const VERSION = '1.1.0';
+	const VERSION = '1.2.0';
 
 	/**
 	 * Max length of one line

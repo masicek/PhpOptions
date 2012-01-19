@@ -481,9 +481,21 @@ class Option
 
 
 		// default value
-		if ($this->defaults)
+		if (!is_null($this->defaults))
 		{
-			$help .= PHP_EOL . $this->wordwrap('DEFAULT="' . $this->defaults . '"', $maxLength, $indentString . $indent);
+			switch (gettype($this->defaults))
+			{
+				case 'boolean':
+					$defaults = $this->defaults ? 'TRUE' : 'FALSE';
+					break;
+				case 'array':
+					$defaults = 'array(' . implode(',', $this->defaults) . ')';
+					break;
+				default:
+					$defaults = $this->defaults;
+					break;
+			}
+			$help .= PHP_EOL . $this->wordwrap('DEFAULT="' . $defaults . '"', $maxLength, $indentString . $indent);
 		}
 
 		// needed options

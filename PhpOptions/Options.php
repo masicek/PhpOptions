@@ -23,7 +23,7 @@ class Options
 	/**
 	 * Version of PhpOptions
 	 */
-	const VERSION = '1.2.0';
+	const VERSION = '1.3.0';
 
 	/**
 	 * Max length of one line
@@ -101,7 +101,7 @@ class Options
 	 */
 	public static function arguments()
 	{
-		return Arguments::arguments();
+		return Arguments::getArguments();
 	}
 
 

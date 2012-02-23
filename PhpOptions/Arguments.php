@@ -59,7 +59,7 @@ class Arguments
 	 *
 	 * @return array
 	 */
-	public static function arguments()
+	public static function getArguments()
 	{
 		self::setAll();
 		return self::$arguments;

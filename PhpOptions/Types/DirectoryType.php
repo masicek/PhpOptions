@@ -81,7 +81,7 @@ class DirectoryType extends AType
 			$value = $this->useFilter($value);
 			if ($this->isFullPath($value))
 			{
-				$isDir = mkdir($value, 0, TRUE);
+				$isDir = mkdir($value, 0700, TRUE);
 			}
 		}
 

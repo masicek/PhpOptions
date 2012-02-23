@@ -18,7 +18,7 @@ require_once ROOT . '/Arguments.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers PhpOptions\Arguments::arguments
+ * @covers PhpOptions\Arguments::getArguments
  * @covers PhpOptions\Arguments::setAll
  * @covers PhpOptions\Arguments::readAll
  */
@@ -35,7 +35,7 @@ class ArgumentsTest extends TestCase
 		$this->setPropertyValue('Arguments', 'PhpOptions\Arguments::$options', NULL);
 
 		$this->setArguments($arguments);
-		$this->assertEquals($expectedOptions, Arguments::arguments());
+		$this->assertEquals($expectedOptions, Arguments::getArguments());
 	}
 
 

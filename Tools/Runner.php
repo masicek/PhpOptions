@@ -180,8 +180,7 @@ class Runner
 		$coverage = $this->setDirSep(DATA_TOOLS . '/Coverage');
 		$tests = $this->setDirSep(TESTS_TOOLS . '/Unit');
 		$this->setArguments('boot.php',
-			'--strict
-			--coverage-html ' . $coverage . '
+			'--coverage-html ' . $coverage . '
 			' . $tests
 		);
 		\PHPUnit_TextUI_Command::main(FALSE);
@@ -204,8 +203,7 @@ class Runner
 		// run tests
 		$tests = $this->setDirSep(TESTS_TOOLS . '/Regression');
 		$this->setArguments('boot.php',
-			'--strict
-			' . $tests
+			$tests
 		);
 		\PHPUnit_TextUI_Command::main(FALSE);
 
@@ -229,8 +227,7 @@ class Runner
 		// run tests
 		$tests = $this->setDirSep(TESTS_TOOLS . '/Minifing');
 		$this->setArguments('boot.php',
-			'--strict
-			' . $tests
+			$tests
 		);
 		\PHPUnit_TextUI_Command::main(FALSE);
 
